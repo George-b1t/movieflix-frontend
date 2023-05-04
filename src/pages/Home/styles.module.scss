@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
 
   width: 100vw;
@@ -12,5 +13,65 @@
     position: absolute;
 
     z-index: -1;
+
+    
   }
+
+  .main_title{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 87px;
+    /* identical to box height */
+    color: #FFFFFF;
+
+    
+    padding-top: 5%;
+  }
+
+  .main_button{
+    background: #7C29E6;
+    border-radius: 32px;
+    width: 251px;
+    height: 57px;
+    left: 834px;
+    top: 511px;
+  }
+
+
+  .propagandas{
+    width: 1577px;
+    height: 156px;
+    left: 174px;
+    top: 1169px;
+
+    background: #333131;
+    border-radius: 15px;
+    
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+  }
+
+  .filmes{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .filme{
+      width: 735px;
+      height: 414px;
+      left: 1013px;
+      top: 1413px;
+      
+
+      margin: 5%;
+      background: #333131;
+      border-radius: 15px;
+    }
+
+
+  }
+
 }
