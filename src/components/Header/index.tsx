@@ -9,6 +9,7 @@ function Header() {
         <a href="#">Local: Aracaju</a>
         <a href="#">Filmes</a>
         <a href="#">Snacks</a>
+        <a href="#">Carrinho</a>
       </nav>
 
       <a className={styles.login} href="#">Login</a>

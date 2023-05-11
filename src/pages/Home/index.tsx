@@ -2,6 +2,10 @@ import { useHistory } from "react-router-dom";
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
+import { Button } from 'primereact/button';
+
+import { Ripple } from 'primereact/ripple';
+        
 
 function Home() {
   const navigate = useHistory();
@@ -12,59 +16,59 @@ function Home() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.main_background}>
+      <Header/>
+      <div className={styles.tudo}>
+        <div className={styles.title}>Trem-Bala</div>
+        <div><Button label="Comprar Ingresso" icon="pi pi-shopping-cart" severity="warning" iconPos="right" rounded/></div>
+        
 
-        {/* <img src="/background_home.png" alt="background" /> */}
+
       </div>
+      
+      <div className={styles.propaganda}>
 
-      <Header />
+      <a href="#" className={styles.propagandaBox}>
+        
+        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
 
-      {/* Nome do Filme */}
-      <div className={styles.main_title}>
-        <h1>Trem-Bala</h1>
+      </a>
+
+      <a href="#" className={styles.propagandaBox}>
+        
+        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
+
+      </a>
+
+      <a href="#" className={styles.propagandaBox}>
+        
+        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
+
+      </a>
+
+      <a href="#" className={styles.propagandaBox}>
+        
+        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
+
+      </a>
+
+      <a href="#" className={styles.propagandaBox}>
+        
+        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
+
+      </a>
+
+      <a href="#" className={styles.propagandaBox}>
+        
+        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
+
+      </a>
+
+
+
       </div>
-
-      {/* Botão de Comprar ingresso */}
-      <div >
-        <button className={styles.main_button}>
-          Comprar Ingresso
-        </button>
-      </div>
-
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-
-      {/* Area De Propaganda */}
-      <div className={styles.propagandas}>
-        Propagandas
-      </div>
-
-    
-      {/* filmes */}
-
-      <div className={styles.filmes}>
-        <div className={styles.filme}>
-          
-        </div>
-        <div className={styles.filme}>
-          
-        </div>
-      </div>
-
-
-      <button
-        onClick={goProducts}
-        style={{ display: "none" }}
-      >
-        Ir para Produtos
-      </button>
-
-
-      <Footer></Footer>
+      
+      <Footer/>
+      
     </div>
   )
 }
