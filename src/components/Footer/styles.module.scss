@@ -1,12 +1,10 @@
 .container {
   display: flex;
-  align-self: center;
   align-items: center;
 
-  
   width: 100%;
   
-  padding: 0px 40px;
+  padding: 10px 0;
   justify-content: space-between;
 
   background-color: #333131;
@@ -16,14 +14,17 @@
     font-style: normal;
     font-weight: 400;
     font-size: 50px;
-    line-height: 100px;
 
     color: #EA9138;
+
+    margin-left: 40px;
   }
 
   nav {
     display: flex;
     gap: 60px;
+
+    margin-right: 40px;
   }
 
   a {
