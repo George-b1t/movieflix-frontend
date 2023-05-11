@@ -2,7 +2,6 @@ import { useHistory } from "react-router-dom";
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { Button } from 'primereact/button';
 
 function Home() {
   const navigate = useHistory();
@@ -16,10 +15,9 @@ function Home() {
       <Header/>
       <div className={styles.tudo}>
         <div className={styles.title}>Trem-Bala</div>
-        <div><Button label="Comprar Ingresso" icon="pi pi-shopping-cart" severity="warning" iconPos="right" rounded/></div>
-        
-
-
+        <div>
+          {/* <Button label="Comprar Ingresso" icon="pi pi-shopping-cart" severity="warning" iconPos="right" rounded/> */}
+        </div>
       </div>
       
       <div className={styles.propaganda}>
