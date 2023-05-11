@@ -14,7 +14,51 @@ function Products() {
     <div className={styles.container}>
       <Header/>
       <h1 className={styles.TitleSnack}>Snack Bar</h1>
-      <div className="Tudo"></div>
+      
+      <div className={styles.Tudo}>
+
+        <div className={styles.comboPopUp}>
+          
+          <div className={styles.comboPopUpButton}></div>
+          
+          </div>
+        <div className={styles.comboPopUp}>
+          
+        <div className={styles.comboPopUpButton}></div>
+
+          </div>
+
+      </div>
+
+      <div className={styles.Tudo}>
+
+        <div className={styles.comboPopUp}>
+          
+          <div className={styles.comboPopUpButton}></div>
+          
+          </div>
+        <div className={styles.comboPopUp}>
+          
+        <div className={styles.comboPopUpButton}></div>
+
+          </div>
+
+      </div>
+
+      <div className={styles.Tudo}>
+
+        <div className={styles.comboPopUp}>
+          
+          <div className={styles.comboPopUpButton}></div>
+          
+          </div>
+        <div className={styles.comboPopUp}>
+          
+        <div className={styles.comboPopUpButton}></div>
+
+          </div>
+
+      </div>
 
       <Footer/>
     </div>
