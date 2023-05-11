@@ -16,7 +16,7 @@ function Home() {
       <div className={styles.tudo}>
         <div className={styles.title}>Trem-Bala</div>
         <div>
-          {/* <Button label="Comprar Ingresso" icon="pi pi-shopping-cart" severity="warning" iconPos="right" rounded/> */}
+          <button className={styles.buyTicketButton}>Comprar Ingresso</button>
         </div>
       </div>
       
