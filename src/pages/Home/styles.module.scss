@@ -9,12 +9,12 @@
   background-image: url("/background_home.png");
 
   .tudo{
-  display: flex;
-  height: calc(50vh - 120px);
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
- }
+    display: flex;
+    height: calc(50vh - 120px);
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
 
 
   .propaganda{
@@ -35,7 +35,8 @@
     border-radius: 10px;
     align-items: flex-end;
     justify-content: center;
-
+    text-decoration: none;
+    color: white;
 
   }
   .title{
@@ -59,10 +60,6 @@
   }
 
   .TextButtonPropaganda{
-    display: flex;
     font-family: 'Montserrat';
-    align-items: center;
-
   }
-
 }

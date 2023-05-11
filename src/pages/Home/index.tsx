@@ -4,9 +4,6 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { Button } from 'primereact/button';
 
-import { Ripple } from 'primereact/ripple';
-        
-
 function Home() {
   const navigate = useHistory();
 
@@ -29,37 +26,37 @@ function Home() {
 
       <a href="#" className={styles.propagandaBox}>
         
-        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
+        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
 
       </a>
 
       <a href="#" className={styles.propagandaBox}>
         
-        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
+        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
 
       </a>
 
       <a href="#" className={styles.propagandaBox}>
         
-        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
+        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
 
       </a>
 
       <a href="#" className={styles.propagandaBox}>
         
-        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
+        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
 
       </a>
 
       <a href="#" className={styles.propagandaBox}>
         
-        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
+        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
 
       </a>
 
       <a href="#" className={styles.propagandaBox}>
         
-        <div className={styles.buttonPropaganda}><div className="TextButtonPropaganda">Filmes</div></div>
+        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
 
       </a>
 

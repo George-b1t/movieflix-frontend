@@ -1,5 +1,7 @@
 import { useHistory } from "react-router-dom"
 import styles from "./styles.module.scss"
+import { Header } from "../../components/Header";
+import { Footer } from "../../components/Footer";
 
 function Products() {
   const navigate = useHistory();
@@ -10,12 +12,11 @@ function Products() {
 
   return (
     <div className={styles.container}>
-      <h1>Página produtos</h1>
-      <button
-        onClick={goHome}
-      >
-        Ir para Home
-      </button>
+      <Header/>
+      <h1 className={styles.TitleSnack}>Snack Bar</h1>
+      <div className="Tudo"></div>
+
+      <Footer/>
     </div>
   )
 }
