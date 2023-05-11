@@ -23,7 +23,7 @@
     width: 100%;
     justify-content: space-around;
     align-items: center;
-    padding: 50px 10px;
+    padding: 50px 0px;
 
   }
 
@@ -31,9 +31,11 @@
     
     border-radius: 10px;
     display: flex;
-    width:750px;
+    flex-direction: column;
+    width:650px;
     background-color: #333131;
     align-items: flex-end;
+    justify-content: space-between;
     height: 320px; 
   }
 
@@ -46,5 +48,23 @@
 
   }
 
+  .insidePopUp{
 
+    display: flex;
+    width: 100%;
+    height: calc(100% - 30px);
+    border-radius: 10px 10px 0 0;
+  }
+
+  .insideHalfPopUp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+  }
+
+  img{
+
+    width: 80%;
+  }
 }

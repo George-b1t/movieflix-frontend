@@ -12,55 +12,62 @@ function Products() {
 
   return (
     <div className={styles.container}>
-      <Header/>
+      <Header />
       <h1 className={styles.TitleSnack}>Snack Bar</h1>
-      
+
       <div className={styles.Tudo}>
 
         <div className={styles.comboPopUp}>
-          
-          <div className={styles.comboPopUpButton}></div>
-          
-          </div>
-        <div className={styles.comboPopUp}>
-          
-        <div className={styles.comboPopUpButton}></div>
+
+          <div className={styles.insidePopUp}>
+
+            <div className={styles.insideHalfPopUp}><img src="/combo_baldao.png" alt="" /></div>
+            <div className={styles.insideHalfPopUp}></div>
 
           </div>
+          <div className={styles.comboPopUpButton}></div>
+
+        </div>
+
+        <div className={styles.comboPopUp}>
+
+          <div className={styles.comboPopUpButton}></div>
+
+        </div>
 
       </div>
 
       <div className={styles.Tudo}>
 
         <div className={styles.comboPopUp}>
-          
-          <div className={styles.comboPopUpButton}></div>
-          
-          </div>
-        <div className={styles.comboPopUp}>
-          
-        <div className={styles.comboPopUpButton}></div>
 
-          </div>
+          <div className={styles.comboPopUpButton}></div>
+
+        </div>
+        <div className={styles.comboPopUp}>
+
+          <div className={styles.comboPopUpButton}></div>
+
+        </div>
 
       </div>
 
       <div className={styles.Tudo}>
 
         <div className={styles.comboPopUp}>
-          
-          <div className={styles.comboPopUpButton}></div>
-          
-          </div>
-        <div className={styles.comboPopUp}>
-          
-        <div className={styles.comboPopUpButton}></div>
 
-          </div>
+          <div className={styles.comboPopUpButton}></div>
+
+        </div>
+        <div className={styles.comboPopUp}>
+
+          <div className={styles.comboPopUpButton}></div>
+
+        </div>
 
       </div>
 
-      <Footer/>
+      <Footer />
     </div>
   )
 }
