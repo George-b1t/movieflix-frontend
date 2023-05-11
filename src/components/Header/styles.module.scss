@@ -30,5 +30,17 @@
     text-decoration: none;
 
     color: #ffffffb3;
+
+    // position: relative;
+
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   height: 2px;
+    //   width: 20px;
+    //   background: #EA9138;
+    //   bottom: -10px;
+    //   left: calc(50% - 5px);
+    // }
   }
 }

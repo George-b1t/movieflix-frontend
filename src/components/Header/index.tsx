@@ -12,7 +12,7 @@ function Header() {
         <a href="#">Carrinho</a>
       </nav>
 
-      <a className={styles.login} href="#">Login</a>
+      <a className={styles.login} href="/#/enter">Entrar</a>
     </div>
   )
 }

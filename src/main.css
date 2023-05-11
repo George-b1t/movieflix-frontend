@@ -4,3 +4,13 @@
 
   font-family: "Montserrat", sans-serif;
 }
+
+button {
+  outline: 0;
+  border: none;
+}
+
+input {
+  outline: none;
+  border: none;
+}
