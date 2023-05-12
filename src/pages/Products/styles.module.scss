@@ -17,11 +17,11 @@
     padding: 15px 0px;
   }
 
-  .Tudo{
+  .rowPopUp{
     height: 350px;;
     display: flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     padding: 50px 0px;
 
@@ -32,19 +32,28 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    width:650px;
+    width:600px;
     background-color: #333131;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     height: 320px; 
+    padding-bottom: 10px;
   }
 
   .comboPopUpButton{
     
-    height: 30px;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 96%;
     background-color: #EA9138;
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+
+  }
+
+  .TextAddToCart{
+    color: white;
 
   }
 
@@ -56,15 +65,31 @@
     border-radius: 10px 10px 0 0;
   }
 
-  .insideHalfPopUp{
+  .insideHalfLeftPopUp{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 50%;
   }
 
+  .insideHalfRightPopUp{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    margin-right: 10px;
+  }
+
+  .ListaCombo{
+    margin-top: 40px;
+    color: white;
+  }
+
+
   img{
 
-    width: 80%;
+    width: 70%;
+    height: 80%;
   }
 }
