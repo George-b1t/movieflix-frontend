@@ -9,7 +9,7 @@ function Header() {
         <a href="#">Local: Aracaju</a>
         <a href="#">Filmes</a>
         <a href="/#/products">Snacks</a>
-        <a href="#">Carrinho</a>
+        <a href="/#/cart">Carrinho</a>
       </nav>
 
       <a className={styles.login} href="/#/enter">Entrar</a>
