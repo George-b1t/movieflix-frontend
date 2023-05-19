@@ -9,7 +9,7 @@ import { Products } from "./pages/Products"
 import { Enter } from "./pages/Enter"
 import { Cart } from "./pages/Cart"
 import { MovieSchedule } from "./pages/MovieSchedule"
-
+import { Movie } from "./pages/Movie"
 
 const Router = () => (
     <HashRouter>
@@ -19,6 +19,7 @@ const Router = () => (
         <Route path="/enter" exact component={Enter} />
         <Route path="/cart" exact component={Cart}/>
         <Route path="/movieschedule" exact component={MovieSchedule}/>
+        <Route path="/movies" exact component={Movie}/>
       </Switch>
     </HashRouter>
 )

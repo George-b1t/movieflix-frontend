@@ -7,7 +7,7 @@ function Header() {
 
       <nav>
         <a href="#">Local: Aracaju</a>
-        <a href="#">Filmes</a>
+        <a href="/#/movies">Filmes</a>
         <a href="/#/products">Snacks</a>
         <a href="/#/cart">Carrinho</a>
       </nav>

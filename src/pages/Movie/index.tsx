@@ -3,21 +3,22 @@ import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 
-function Cart(){
+function Movie(){
     const navigate = useHistory();
 
-    function goCart() {
-        navigate.push("/cart");
+    function goMovie() {
+        navigate.push("/movies");
     }
 
     return (
             <div className={styles.container}>
                 <Header />
-                <div className={styles.cart}>
-                  
-                <div className={styles.n}>a</div>
-                <div className={styles.payContainer}>a</div>
+                
+                <div className={styles.box}> 
+                
+                    <p> Trem Bala </p>
 
+                    <button className={styles.buyTicketButton}>Comprar Ingresso</button>
 
                 </div>
                 <Footer />
@@ -28,4 +29,4 @@ function Cart(){
 
 }
 
-export {Cart}
+export {Movie}

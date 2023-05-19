@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: black ;
+    align-items: center;
+
+
+    .box {
+        display: flex;
+        height: calc(100vh - 120px);
+        width: 60%;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    p{
+        color: white;
+        font-size: 70px;
+    }
+
+    button {
+        width: 250px;
+        height: 50px;
+        border-radius: 25px;
+    
+        background-color: #EA9138;
+    
+        font-weight: 600;
+        font-size: 21px;
+        color: white;
+    
+        margin-top: 10px;
+    
+        transition: .1s ease;
+        
+    
+        &:hover, &:focus {
+          filter: brightness(0.8);
+        }
+      }
+}
