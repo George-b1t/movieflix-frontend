@@ -14,10 +14,94 @@ function Cart(){
             <div className={styles.container}>
                 <Header />
                 <div className={styles.cart}>
-                  
-                <div className={styles.n}>a</div>
-                <div className={styles.payContainer}>a</div>
+                <div className={styles.carrinho}>
+                    
+                     <section className={styles.itenscarrinho}>
+                     <h2>Meu carrinho</h2>
 
+                        <article>
+                            <p>Ingresso filme: Guardiões da Galáxia</p>
+                            <div className={styles.quantidade}>
+                                <p>Qtd:</p>
+                                <select name="" id="">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </article>
+
+                        <article>
+                            <p>Ingresso filme: Guardiões da Galáxia</p>
+                            <div className={styles.quantidade}>
+                                <p>Qtd:</p>
+                                <select name="" id="">
+                                <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </article>
+
+                        <article>
+                            <p>Ingresso filme: Guardiões da Galáxia</p>
+                            <div className={styles.quantidade}>
+                                <p>Qtd:</p>
+                                <select name="" id="">
+                                <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                        </article>
+                        
+                     </section>
+
+                     <section className={styles.itensvalores}>
+
+                        <h2>Valores</h2>
+
+                        <article>
+                            
+                            <div className={styles.itensingressos}>
+                                <h3>Ingresso filme: guardiões da Galáxia</h3>
+                                <p>R$ 60,00</p>
+                            </div>
+
+                            <div className={styles.line}></div>
+
+                            <div className={styles.itensingressos}>
+                                <h3>Ingresso filme: guardiões da Galáxia</h3>
+                                <p>R$ 60,00</p>
+                            </div>
+
+                            <div className={styles.line}></div>
+
+                            <div className={styles.itensingressos}>
+                                <h3>Ingresso filme: guardiões da Galáxia</h3>
+                                <p>R$ 60,00</p>
+                            </div>
+
+                            <div className={styles.line}></div>
+
+                            <div className={styles.itensingressos}>
+                                <h3>Total</h3>
+                                <p>R$ 180,00</p>
+                            </div>
+
+                        </article>
+
+                        
+                        <button>Continuar</button>
+
+                     </section>
+                </div>
 
                 </div>
                 <Footer />
