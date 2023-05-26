@@ -1,34 +1,18 @@
-import { useHistory } from "react-router-dom";
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../../context/AppContext";
 
 function Cart(){
-    const navigate = useHistory();
+    const { cart, setCart } = useContext(AppContext);
 
     const [isPaying, setIsPaying] = useState(false);
-    const [items , setItems] = useState([
-        {
-            name: "Ingresso filme: guardiões da Galáxia",
-            price: 20.00,
-            quantity: 2
-        },
-        {
-            name: "Combo Guardião",
-            price: 50.00,
-            quantity: 1
-        }
-    ]);
 
     function changeQuantity(index: number, quantity: number) {
-        const newItems = [...items];
+        const newItems = [...cart];
         newItems[index].quantity = quantity;
-        setItems(newItems);
-    }
-
-    function goCart() {
-        navigate.push("/cart");
+        setCart(newItems);
     }
 
     return (
@@ -41,7 +25,7 @@ function Cart(){
                     <h2>Meu carrinho</h2>
 
                     {
-                        items.map((item, index) => (
+                        cart.map((item, index) => (
                             <article key={index}>
                                 <p>{item.name}</p>
                                 <div className={styles.quantidade}>
@@ -73,14 +57,14 @@ function Cart(){
                             )
                             : (
                                 <>
-                                    {items.map((item, index) => (
+                                    {cart.map((item, index) => (
                                         <>
                                             <div className={styles.itensingressos} key={index}>
                                                 <h3>{item.name}</h3>
                                                 <p>R$ {item.price * item.quantity}</p>
                                             </div>
 
-                                            {index % 2 === 0 && <div className={styles.line} />}
+                                            {index != (cart.length - 1) && <div className={styles.line} />}
                                         </>
                                     ))}
                                 </>

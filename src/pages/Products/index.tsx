@@ -1,13 +1,27 @@
-import { useHistory } from "react-router-dom"
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
+
+interface Product {
+  name: string;
+  price: number;
+  content: string[];
+  image: string;
+}
 
 function Products() {
-  const navigate = useHistory();
+  const { setCart } = useContext(AppContext);
 
-  function goHome() {
-    navigate.push("/");
+  function addProduct() {
+    setCart(
+      oldValue => [...oldValue, {
+        name: "Combo Baldão",
+        price: 20.00,
+        quantity: 2
+      }]
+    )
   }
 
   return (
@@ -41,11 +55,11 @@ function Products() {
           </div>
           
           {/* Botão Laranja PopUp Esquerda */}
-          <div className={styles.comboPopUpButton}>
+          <button onClick={addProduct} className={styles.comboPopUpButton}>
 
           <h3 className={styles.TextAddToCart}>Adicionar ao Carrinho</h3>
 
-          </div>
+          </button>
 
         </div>
 
@@ -73,11 +87,11 @@ function Products() {
           </div>
 
           {/* Botão Laranja PopUp Esquerda */}
-          <div className={styles.comboPopUpButton}>
+          <button className={styles.comboPopUpButton}>
 
           <h3 className={styles.TextAddToCart}>Adicionar ao Carrinho</h3>
 
-          </div>
+          </button>
 
         </div>
 
@@ -110,11 +124,11 @@ function Products() {
           </div>
           
           {/* Botão Laranja PopUp Esquerda */}
-          <div className={styles.comboPopUpButton}>
+          <button className={styles.comboPopUpButton}>
 
           <h3 className={styles.TextAddToCart}>Adicionar ao Carrinho</h3>
 
-          </div>
+          </button>
 
         </div>
 
@@ -143,11 +157,11 @@ function Products() {
           </div>
 
           {/* Botão Laranja PopUp Direita */}
-          <div className={styles.comboPopUpButton}>
+          <button className={styles.comboPopUpButton}>
 
           <h3 className={styles.TextAddToCart}>Adicionar ao Carrinho</h3>
 
-          </div>
+          </button>
 
         </div>
 
@@ -181,10 +195,10 @@ function Products() {
           </div>
           
           {/* Botão Laranja PopUp Esquerda */}
-          <div className={styles.comboPopUpButton}>
+          <button className={styles.comboPopUpButton}>
 
             <h3 className={styles.TextAddToCart}>Adicionar ao Carrinho</h3>
-          </div>
+          </button>
 
         </div>
 
@@ -212,11 +226,11 @@ function Products() {
           </div>
           
           {/* Botão Laranja PopUp Direita */}
-          <div className={styles.comboPopUpButton}>
+          <button className={styles.comboPopUpButton}>
 
           <h3 className={styles.TextAddToCart}>Adicionar ao Carrinho</h3>
 
-          </div>
+          </button>
 
         
         </div>
