@@ -37,6 +37,14 @@
                 .quantidade{
                     display: flex;
                     gap: 1rem;
+
+                    input {
+                        width: 30px;
+                        height: 20px;
+                        border-radius: 3px;
+
+                        text-align: center;
+                    }
                 }
             }
       

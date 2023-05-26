@@ -13,53 +13,17 @@ function Home() {
   return (
     <div className={styles.container}>
       <Header/>
-      <div className={styles.tudo}>
-        <div className={styles.title}>Trem-Bala</div>
-        <div>
-          <button className={styles.buyTicketButton}>Comprar Ingresso</button>
-        </div>
-      </div>
       
       <div className={styles.propaganda}>
 
-      <a href="#" className={styles.propagandaBox}>
-        
-        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
+      {[1,1,1,1,1,].map(item => (
+        <a href="#/movieschedule" className={styles.propagandaBox}>
+          <img src="/movieTestImage.png" alt="" />
+          
+          <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Ver filme</p></div></div>
 
-      </a>
-
-      <a href="#" className={styles.propagandaBox}>
-        
-        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
-
-      </a>
-
-      <a href="#" className={styles.propagandaBox}>
-        
-        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
-
-      </a>
-
-      <a href="#" className={styles.propagandaBox}>
-        
-        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
-
-      </a>
-
-      <a href="#" className={styles.propagandaBox}>
-        
-        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
-
-      </a>
-
-      <a href="#" className={styles.propagandaBox}>
-        
-        <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Filmes</p></div></div>
-
-      </a>
-
-
-
+        </a>
+      ))}
       </div>
       
       <Footer/>

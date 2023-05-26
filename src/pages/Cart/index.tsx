@@ -8,6 +8,24 @@ function Cart(){
     const navigate = useHistory();
 
     const [isPaying, setIsPaying] = useState(false);
+    const [items , setItems] = useState([
+        {
+            name: "Ingresso filme: guardiões da Galáxia",
+            price: 20.00,
+            quantity: 2
+        },
+        {
+            name: "Combo Guardião",
+            price: 50.00,
+            quantity: 1
+        }
+    ]);
+
+    function changeQuantity(index: number, quantity: number) {
+        const newItems = [...items];
+        newItems[index].quantity = quantity;
+        setItems(newItems);
+    }
 
     function goCart() {
         navigate.push("/cart");
@@ -22,33 +40,17 @@ function Cart(){
                     <section className={styles.itenscarrinho}>
                     <h2>Meu carrinho</h2>
 
-                    <article>
-                        <p>Ingresso filme: guardiões da Galáxia</p>
-                        <div className={styles.quantidade}>
-                            <p>Qtd:</p>
-                            <select value={2} name="" id="">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                    </article>
-
-                    <article>
-                        <p>Combo Guardião</p>
-                        <div className={styles.quantidade}>
-                            <p>Qtd:</p>
-                            <select value={1} name="" id="">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                    </article>
+                    {
+                        items.map((item, index) => (
+                            <article key={index}>
+                                <p>{item.name}</p>
+                                <div className={styles.quantidade}>
+                                    <p>Qtd:</p>
+                                    <input type="text" value={item.quantity} onChange={(e) => changeQuantity(index, Number(e.target.value))} />
+                                </div>
+                            </article>
+                        ))
+                    }
                     
                     </section>
 
@@ -71,17 +73,16 @@ function Cart(){
                             )
                             : (
                                 <>
-                                    <div className={styles.itensingressos}>
-                                        <h3>Ingresso filme: guardiões da Galáxia</h3>
-                                        <p>R$ 40,00</p>
-                                    </div>
+                                    {items.map((item, index) => (
+                                        <>
+                                            <div className={styles.itensingressos} key={index}>
+                                                <h3>{item.name}</h3>
+                                                <p>R$ {item.price * item.quantity}</p>
+                                            </div>
 
-                                    <div className={styles.line}></div>
-
-                                    <div className={styles.itensingressos}>
-                                        <h3>Combo Guardião</h3>
-                                        <p>R$ 50,00</p>
-                                    </div>
+                                            {index % 2 === 0 && <div className={styles.line} />}
+                                        </>
+                                    ))}
                                 </>
                             )
                         }
