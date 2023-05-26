@@ -48,7 +48,7 @@
             article{
                 background: #0E0E0E;
                 border-radius: 0.3rem;
-                padding: 0.5rem 0;
+                padding: 1rem 0;
                 
 
                 .itensingressos{
@@ -59,7 +59,30 @@
 
             }
 
-            button{
+            .opcaoPagamento {
+                width: 95%;
+                height: 60px;
+                font-size: 22px;
+                text-align: start;
+                padding-left: 1rem;
+                margin: 0 2.5%;
+                background: #000;
+                color: white;
+                border-radius: 5px;
+
+                &:not(:last-child) {
+                    margin-bottom: 1rem;
+                }
+
+                transition: .3s ease;
+
+                &:hover {
+                    background: #fff;
+                    color: #000;
+                }
+            }
+
+            .payButton {
                 width: 550px;
                 height: 3rem;
                 color: #0E0E0E;
