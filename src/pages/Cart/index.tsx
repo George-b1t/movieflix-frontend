@@ -10,6 +10,7 @@ function Cart(){
     const [isPaying, setIsPaying] = useState(false);
 
     function changeQuantity(index: number, quantity: number) {
+        if (quantity == 0) return;
         const newItems = [...cart];
         newItems[index].quantity = quantity;
         setCart(newItems);
@@ -30,7 +31,7 @@ function Cart(){
                                 <p>{item.name}</p>
                                 <div className={styles.quantidade}>
                                     <p>Qtd:</p>
-                                    <input type="text" value={item.quantity} onChange={(e) => changeQuantity(index, Number(e.target.value))} />
+                                    <input type="number" value={item.quantity} onChange={(e) => changeQuantity(index, Number(e.target.value))} />
                                 </div>
                             </article>
                         ))
