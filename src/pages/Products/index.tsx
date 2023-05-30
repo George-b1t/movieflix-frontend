@@ -83,7 +83,7 @@ function Products() {
       <div className={styles.rowPopUp}>
       {
         products.map((product, index) => (
-            <div className={styles.comboPopUp}>
+            <div key={index} className={styles.comboPopUp}>
               <div className={styles.insidePopUp}>
                 <div className={styles.insideHalfLeftPopUp}><img src={product.image} alt="" /></div>
                 <div className={styles.insideHalfRightPopUp}>

@@ -66,23 +66,33 @@
         color: #fff;
         font-size: 30px;
 
-        margin-bottom: 0.5rem;
+        span {
+          font-size: 18px;
+          font-weight: 400;
+          color: #474646;
+        }
       }
 
       .daysField {
         display: flex;
         gap: 0.5rem;
 
+        margin-top: 0.5rem;
+
         .day {
-          width: 70px;
-          height: 45px;
+          width: 80px;
+          height: 50px;
           border-radius: 6px;
 
           background: #474646;
 
           color: #fff;
-          font-size: 16px;
+          font-size: 18px;
           font-weight: 600;
+
+          &.daySelected {
+            background: #FD9B3A;
+          }
         }
       }
 
@@ -92,6 +102,70 @@
         background: #333131;
 
         margin: 1rem 0;
+      }
+
+      .fieldSeats {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+
+        .seat {
+          width: 50px;
+          height: 50px;
+          border-radius: 6px;
+
+          background: #E7E7E7;
+
+          color: #000000;
+          font-size: 16px;
+          font-weight: 600;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          transition: .3s ease;
+
+          &:hover, &:focus {
+            background: #fff;
+            color: #000;
+          }
+
+          &.seatSelected {
+            background: #FD9B3A;
+            color: #000000;
+          }
+
+          &.seatOccupied {
+            background: #474646;
+            color: #000000;
+            cursor: not-allowed;
+          }
+        }
+
+        .buttonNavigator {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+
+          button {
+            width: 48%;
+            height: 3.5rem;
+            color: #0E0E0E;
+            font-size: 1.5rem;
+            border-radius: 0.3rem;
+            margin-top: 1rem;
+          }
+
+          .backButton {
+            background: #B9ADA0;
+          }
+
+          .continueButton {
+            background: #ea9138;
+          }
+        }
       }
       
       .fieldRooms {
@@ -136,6 +210,12 @@
             &:hover, &:focus {
               background: #fff;
               color: #000;
+            }
+
+            &.hourSelected {
+              background: #FD9B3A;
+              border: 1px solid #FD9B3A;
+              color: #000000;
             }
           }
         }
