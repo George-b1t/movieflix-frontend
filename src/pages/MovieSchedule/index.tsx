@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Footer } from "../../components/Footer"
 import { Header } from "../../components/Header"
 import styles from "./styles.module.scss"
+import { AppContext } from "../../context/AppContext";
+import { toast } from "react-toastify";
 
 interface Seat {
   id: number;
@@ -14,6 +16,8 @@ interface Session {
 }
 
 function MovieSchedule() {
+  const { setCart } = useContext(AppContext);
+
   const [ seats, setSeats ] = useState<Seat[]>([]);
   const [ days, setDays ] = useState<string[]>([]);
   const [ selectedDay, setSelectedDay ] = useState<string>("");
@@ -81,6 +85,16 @@ function MovieSchedule() {
 
   function isSessionSelected(session: Session) {
     return selectedSession?.room === session.room && selectedSession?.time === session.time;
+  }
+
+  function setCartItems() {
+    toast.success("Ingresso adicionado ao carrinho com sucesso!");
+
+    setCart(oldValue => [...oldValue, {
+      name: "Guardiões da Galáxia",
+      price: 20.00,
+      quantity: seats.filter(seat => seat.status === "selected").length,
+    }]);
   }
 
   return (
@@ -160,7 +174,7 @@ function MovieSchedule() {
                 
                 <div className={styles.buttonNavigator}>
                   <button onClick={() => setSelectedSession(null)} className={styles.backButton}>Voltar</button>
-                  <button className={styles.continueButton}>Continuar</button>
+                  <button onClick={() =>  setCartItems()} className={styles.continueButton}>Continuar</button>
                 </div>
               </div>
             )
