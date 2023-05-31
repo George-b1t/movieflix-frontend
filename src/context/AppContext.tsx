@@ -9,6 +9,8 @@ export interface Cart {
 interface AppContextData {
   cart: Cart[];
   setCart: React.Dispatch<React.SetStateAction<Cart[]>>
+  isMovieFormOpen: boolean;
+  setIsMovieFormOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const AppContext = createContext({} as AppContextData);
@@ -20,10 +22,14 @@ interface AppContextProviderProps {
 function AppContextProvider({ children }: AppContextProviderProps) {
   const [cart, setCart] = useState<Cart[]>([]);
 
+  const [ isMovieFormOpen, setIsMovieFormOpen ] = useState(false);
+
   return (
     <AppContext.Provider value={{
       cart,
-      setCart
+      setCart,
+      isMovieFormOpen,
+      setIsMovieFormOpen
     }}>
       {children}
     </AppContext.Provider>

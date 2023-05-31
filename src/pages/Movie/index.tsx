@@ -1,10 +1,17 @@
+import { useContext } from "react";
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
+import { MovieForm } from "../../components/MovieForm";
+import { AppContext } from "../../context/AppContext";
 
 function Movie() {
+  const { isMovieFormOpen, setIsMovieFormOpen } = useContext(AppContext);
+
   return (
     <div className={styles.container}>
+      {isMovieFormOpen && <MovieForm movie={null} />}
+
       <Header/>
       
       <div className={styles.propaganda}>
@@ -21,7 +28,7 @@ function Movie() {
         </a>
       ))}
 
-      <a href="#/movieschedule" className={styles.propagandaBox}>
+      <a onClick={() => setIsMovieFormOpen(true)} className={styles.propagandaBox}>
         <div className={styles.fieldImageAdd}>
           <img className={styles.addImage} src="/add.png" alt="add" />
         </div>
