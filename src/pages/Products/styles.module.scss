@@ -42,6 +42,27 @@
     justify-content: space-between;
     height: 320px; 
     padding-bottom: 10px;
+
+    .fieldImageAdd {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img.addImage {
+      width: 120px;
+      height: 120px;
+
+      cursor: pointer;
+
+      transition: .1s ease;
+
+      &:hover {
+        filter: brightness(0.8);
+        transform: scale(1.1);
+      }
+    }
   }
 
   .comboPopUpButton{

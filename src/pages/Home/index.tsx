@@ -1,35 +1,25 @@
-import { useHistory } from "react-router-dom";
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 
-function Home() {
-  const navigate = useHistory();
+function Home(){
+    return (
+            <div className={styles.container}>
+                <Header />
+                
+                <div className={styles.box}> 
+                
+                    <p> Trem Bala </p>
 
-  function goProducts() {
-    navigate.push("/products");
-  }
+                    <button className={styles.buyTicketButton}>Comprar Ingresso</button>
 
-  return (
-    <div className={styles.container}>
-      <Header/>
-      
-      <div className={styles.propaganda}>
+                </div>
+                <Footer />
+            </div>
+        )
 
-      {[1,1,1,1,1,].map(item => (
-        <a href="#/movieschedule" className={styles.propagandaBox}>
-          <img src="/movieTestImage.png" alt="" />
-          
-          <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Ver filme</p></div></div>
 
-        </a>
-      ))}
-      </div>
-      
-      <Footer/>
-      
-    </div>
-  )
+
 }
 
-export { Home }
+export {Home}

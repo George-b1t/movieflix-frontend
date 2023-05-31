@@ -2,7 +2,7 @@ import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import { AppContext, Cart } from "../../context/AppContext";
 import { toast } from "react-toastify";
 
 interface Product {
@@ -58,11 +58,11 @@ function Products() {
     setCart(
       oldValue => {
         const productAlreadyInCart = oldValue.find(
-          (item: any) => item.name === nProduct.name
+          (item: Cart) => item.name === nProduct.name
         )
 
         if (productAlreadyInCart) {
-          return oldValue.map((item: any) =>
+          return oldValue.map((item: Cart) =>
             item.name === nProduct.name
               ? { ...productAlreadyInCart, quantity: item.quantity + 1 }
               : item
@@ -83,26 +83,32 @@ function Products() {
       <div className={styles.rowPopUp}>
       {
         products.map((product, index) => (
-            <div key={index} className={styles.comboPopUp}>
-              <div className={styles.insidePopUp}>
-                <div className={styles.insideHalfLeftPopUp}><img src={product.image} alt="" /></div>
-                <div className={styles.insideHalfRightPopUp}>
-                  <h1 style={{color:"white"}}>{product.name}</h1>
-                  <ul className={styles.ListaCombo}>
-                    {
-                      product.content.map((item, index) => (
-                        <li key={index}>{item}</li>
-                      ))
-                    }
-                  </ul>
-                </div>
+          <div key={index} className={styles.comboPopUp}>
+            <div className={styles.insidePopUp}>
+              <div className={styles.insideHalfLeftPopUp}><img src={product.image} alt="" /></div>
+              <div className={styles.insideHalfRightPopUp}>
+                <h1 style={{color:"white"}}>{product.name}</h1>
+                <ul className={styles.ListaCombo}>
+                  {
+                    product.content.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))
+                  }
+                </ul>
               </div>
-              <button className={styles.comboPopUpButton} onClick={() => addProduct(product)}>
-                <h3 className={styles.TextAddToCart}>Adicionar ao Carrinho</h3>
-              </button>
             </div>
+            <button className={styles.comboPopUpButton} onClick={() => addProduct(product)}>
+              <h3 className={styles.TextAddToCart}>Adicionar ao Carrinho</h3>
+            </button>
+          </div>
         ))
       }
+      <div className={styles.comboPopUp}>
+        <div className={styles.fieldImageAdd}>
+          <img className={styles.addImage} src="/add.png" alt="add" />
+        </div>
+      </div>
+
       </div>
 
       <Footer />
