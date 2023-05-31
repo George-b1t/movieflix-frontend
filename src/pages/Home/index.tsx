@@ -3,33 +3,30 @@ import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 
-function Home() {
-  const navigate = useHistory();
+function Home(){
+    const navigate = useHistory();
 
-  function goProducts() {
-    navigate.push("/products");
-  }
+    function goMovie() {
+        navigate.push("/movies");
+    }
 
-  return (
-    <div className={styles.container}>
-      <Header/>
-      
-      <div className={styles.propaganda}>
+    return (
+            <div className={styles.container}>
+                <Header />
+                
+                <div className={styles.box}> 
+                
+                    <p> Trem Bala </p>
 
-      {[1,1,1,1,1,].map(item => (
-        <a href="#/movieschedule" className={styles.propagandaBox}>
-          <img src="/movieTestImage.png" alt="" />
-          
-          <div className={styles.buttonPropaganda}><div className={styles.TextButtonPropaganda}><p>Ver filme</p></div></div>
+                    <button className={styles.buyTicketButton}>Comprar Ingresso</button>
 
-        </a>
-      ))}
-      </div>
-      
-      <Footer/>
-      
-    </div>
-  )
+                </div>
+                <Footer />
+            </div>
+        )
+
+
+
 }
 
-export { Home }
+export {Home}

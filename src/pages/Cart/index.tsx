@@ -7,13 +7,47 @@ import { AppContext } from "../../context/AppContext";
 function Cart(){
 	const { cart, setCart } = useContext(AppContext);
 
+	const [ selectedPayment, setSelectedPayment ] = useState<"pix" | "creditCard" | null>(null);
 	const [isPaying, setIsPaying] = useState(false);
 
 	function changeQuantity(index: number, quantity: number) {
-			if (quantity == 0) return;
-			const newItems = [...cart];
-			newItems[index].quantity = quantity;
-			setCart(newItems);
+		if (quantity == 0) return;
+		const newItems = [...cart];
+		newItems[index].quantity = quantity;
+		setCart(newItems);
+	}
+
+	function removeItem(index: number) {
+		const newItems = [...cart];
+		newItems.splice(index, 1);
+		setCart(newItems);
+	}
+
+	function selectPayment(payment: "pix" | "creditCard") {
+		if (selectedPayment === payment) {
+			setSelectedPayment(null);
+			return;
+		}
+
+		setSelectedPayment(payment);
+	}
+
+	function onBackButton() {
+		if (isPaying && !selectedPayment) {
+			setIsPaying(false);
+			return;
+		}
+		if (isPaying && selectedPayment) {
+			setSelectedPayment(null);
+			return;
+		}
+	}
+
+	function onNextClick() {
+		if (!isPaying) {
+			setIsPaying(true);
+			return;
+		}
 	}
 
 	return (
@@ -37,6 +71,7 @@ function Cart(){
 										<div className={styles.quantidade}>
 											<p>Qtd:</p>
 											<input type="number" value={item.quantity} onChange={(e) => changeQuantity(index, Number(e.target.value))} />
+											<button onClick={() => removeItem(index)}>Excluir</button>
 										</div>
 									</article>
 								))
@@ -50,18 +85,25 @@ function Cart(){
 
 							<article>
 								{
-									isPaying ? (
+									isPaying && !selectedPayment && (
 											<>
-													<button className={styles.opcaoPagamento}>
+													<button
+														onClick={() => selectPayment("pix")}
+														className={styles.opcaoPagamento}
+													>
 															Pix
 													</button>
-													<button className={styles.opcaoPagamento}>
+													<button
+														onClick={() => selectPayment("creditCard")}
+														className={styles.opcaoPagamento}
+													>
 															Cartão de crédito
 													</button>
 											</>
 									)
-									: 
-									(
+								}
+								{
+									!isPaying && (
 										<>
 											{cart.map((item, index) => (
 												<>
@@ -70,18 +112,55 @@ function Cart(){
 														<p>R$ {item.price * item.quantity}</p>
 													</div>
 
-													{index != (cart.length - 1) && <div className={styles.line} />}
+													<div className={styles.line} />
 												</>
 											))}
+
+											<div className={styles.total}>
+												<p>Total:</p>
+												<p>R$ {cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)}</p>
+											</div>
 										</>
 									)
 								}
 
-							</article>
+								{
+									isPaying && selectedPayment == "creditCard" && (
+										<div className={styles.creditCard}>
+											<input type="text" placeholder="Nome do titular" />
+											<input type="text" placeholder="Número do cartão" />
+											<input type="text" placeholder="Validade" />
+											<input type="text" placeholder="CVV" />
+										</div>
+									)
+								}
 
-							{
-								!isPaying && <button className={styles.payButton} onClick={() => setIsPaying(true)}>Continuar</button>
-							}
+								{
+									isPaying && selectedPayment == "pix" && (
+										<div className={styles.pix}>
+											<img src="/qr_code_barcode.jpg" alt="" />
+										</div>
+									)
+								}
+
+								<div className={styles.buttonNavigator}>
+                  <button
+										onClick={() => onBackButton()}
+										className={styles.backButton}
+										style={isPaying && !selectedPayment ? { width: "100%" } : {}}
+									>
+											Voltar
+									</button>
+                  {!(isPaying && !selectedPayment) && (
+									<button
+										onClick={() => onNextClick()}
+										className={styles.continueButton}
+									>
+											Continuar
+										</button>
+									)}
+                </div>
+							</article>
 
 							</section>
 						</div>
