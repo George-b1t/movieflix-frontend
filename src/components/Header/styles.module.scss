@@ -9,6 +9,28 @@
 
   justify-content: space-between;
 
+  .listFiliais {
+    display: none;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    padding: 0.7rem;
+    border-radius: 6px;
+
+    position: absolute;
+
+    background: #1d1d1d;
+
+    p {
+      color: #fff;
+      font-size: 14px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   h1 {
     font-family: "Monoton", sans-serif;
     font-style: normal;
@@ -24,12 +46,21 @@
     gap: 60px;
   }
 
-  a {
+  .selectFilial {
+    &:hover {
+      .listFiliais {
+        display: flex;
+      }
+    }
+  }
+
+  a, .selectFilial {
     font-family: 'Montserrat';
     font-size: 27px;
     text-decoration: none;
 
-    color: #ffffffb3; 
+    color: #ffffffb3;
+    cursor: pointer;
 
     // position: relative;
 
