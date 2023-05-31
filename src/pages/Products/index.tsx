@@ -2,7 +2,7 @@ import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { useContext } from "react";
-import { AppContext } from "../../context/AppContext";
+import { AppContext, Cart } from "../../context/AppContext";
 import { toast } from "react-toastify";
 
 interface Product {
@@ -58,11 +58,11 @@ function Products() {
     setCart(
       oldValue => {
         const productAlreadyInCart = oldValue.find(
-          (item: any) => item.name === nProduct.name
+          (item: Cart) => item.name === nProduct.name
         )
 
         if (productAlreadyInCart) {
-          return oldValue.map((item: any) =>
+          return oldValue.map((item: Cart) =>
             item.name === nProduct.name
               ? { ...productAlreadyInCart, quantity: item.quantity + 1 }
               : item

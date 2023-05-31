@@ -1,22 +1,15 @@
-import { useHistory } from "react-router-dom";
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 
 function Movie() {
-  const navigate = useHistory();
-
-  function goProducts() {
-    navigate.push("/products");
-  }
-
   return (
     <div className={styles.container}>
       <Header/>
       
       <div className={styles.propaganda}>
 
-      {[1,1,1,1,1].map(item => (
+      {[1,1,1,1,1].map(() => (
         <a href="#/movieschedule" className={styles.propagandaBox}>
           <img src="/movieTestImage.png" alt="" />
           
