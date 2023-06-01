@@ -1,0 +1,82 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 1000;
+
+  .modal {
+    width: 500px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgba(0, 0, 0, 0.95);
+    border-radius: 10px;
+    position: relative;
+
+    p {
+      width: 100%;
+      text-align: center;
+      font-size: 23px;
+    }
+
+    button {
+      width: 80%;
+      height: 26px;
+      padding: 0 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 6px;
+      color: white;
+      background-color: #333131;
+      font-size: 1.05rem;
+    }
+
+    .buttonsContainer {
+      width: 80%;
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 140px;
+        height: 26px;
+        background: #EA9138;
+        border-radius: 5px;
+        color: white;
+        font-size: 20px;
+        transition: .1s ease;
+        right: 0;
+      }
+    }
+
+    .itensContainer {
+      width: calc(80% - 20px);
+      height: 300px;
+      padding: 10px;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      top: 114px;
+      border-radius: 6px;
+      background-color: #333131;
+      overflow-y: scroll;
+
+      button {
+        width: 100%;
+        
+        &:hover {
+          background-color: #EA9138;
+        }
+      }
+    }
+  }
+}

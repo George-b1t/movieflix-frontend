@@ -1,8 +1,9 @@
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
+import { Dropdown } from "../../components/Dropdown";
 
 function ProductsTable(){
     const {user} = useContext(AppContext);
