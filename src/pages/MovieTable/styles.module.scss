@@ -1,0 +1,133 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  
+
+    background-color: black;
+    
+    height: 100vh;
+
+    .content {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    
+    }
+
+    .employeeTable{
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        max-height: 600px;
+        overflow-y: scroll;
+        max-width: 1600px;
+
+    
+
+    }
+
+    .employeeHeader{
+        display: flex;
+        gap: 2px;
+        padding-bottom: 2px;
+
+        p{
+            display: flex;
+            color: white;
+            background: #1b1b1b;
+            height: 50px;
+            width: 298px;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+
+
+            border-radius: 2px;
+
+            &:last-child{
+                width: 100px;
+            }
+
+        }
+
+        
+    }
+
+    .employeeBody{
+        display: flex;
+        gap: 2px;
+        padding-bottom: 2px;
+        
+
+        
+        p,button{
+            display: block;
+            color: white;
+            background: #373737;
+            width: 298px;
+            border-radius: 2px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px 0;
+            
+
+            &:last-child{
+                width: 100px;
+                
+                transition: .1s ease;
+
+                &:hover{
+                    color: black;
+                    background: #e2b282;
+                }
+            }
+
+        }
+    
+    }
+    
+    p{
+        color: white;
+    }
+
+    .pageHeader{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+
+    }
+
+
+    .title{
+        color: white;
+        text-align: start;
+        padding: 0 0 20px 20px;
+    }
+
+    .buttonCadastrar{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 200px;
+        height: 50px;
+        background: #EA9138;
+        border-radius: 5px;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+        transition: .1s ease;
+        
+
+        &:hover{
+            background: #e2b282;
+        }
+    }
+}

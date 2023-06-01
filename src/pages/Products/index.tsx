@@ -1,10 +1,11 @@
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext, Cart } from "../../context/AppContext";
 import { toast } from "react-toastify";
 import { SnackForm } from "../../components/SnackForm";
+import { Dropdown } from "../../components/Dropdown";
 
 interface Product {
   name: string;
@@ -52,6 +53,8 @@ function Products() {
       image: "/ProductsImages/combo_grande.png"
     },
   ]
+
+const [itemSelecionado, setItemSelecionado] = useState("");
 
   const {
     user,

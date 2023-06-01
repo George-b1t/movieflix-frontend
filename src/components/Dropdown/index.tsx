@@ -36,8 +36,8 @@ function Dropdown({ title, items, valueSetter, exitAction, saveAction }: Dropdow
                    }}>Selecione uma opção</button>
                 {items.map((item, i) => {
                    return <button onClick={() => {
-                    handleChange(`${item} ${i}`);
-                   }}>{`${item} ${i}`}</button> 
+                    handleChange(`${item}`);
+                   }}>{`${item}`}</button> 
                 })}
             </div>}
         </div>
