@@ -3,10 +3,15 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { Dropdown } from "../../components/Dropdown";
+import { SnackForm } from "../../components/SnackForm";
+
+
 
 function ProductsTable(){
     const {user} = useContext(AppContext);
+
+    const { setIsSnackFormOpen, isSnackFormOpen } = useContext(AppContext);
+
 
     const listafuncionarios = [
         {
@@ -98,11 +103,13 @@ function ProductsTable(){
     return (
             <div className={styles.container}>
                 <Header />
+                {isSnackFormOpen && <SnackForm />}
+
 
                 <div className={styles.content}>
                     <div className={styles.pageHeader}>
                         <h1 className={styles.title}> Produtos </h1> 
-                        <button className={styles.buttonCadastrar}>Cadastrar</button>
+                        <button  onClick={() => setIsSnackFormOpen(true)} className={styles.buttonCadastrar}>Cadastrar</button>
                     </div>
 
                     <div className={styles.productsTableTable}>
@@ -118,8 +125,8 @@ function ProductsTable(){
                             return (
                                 <div key={index} className={styles.productsTableBody} > 
                                     <p>{item.nome}</p>
-                                    <p>{item.descricao}</p>
                                     <p>{item.valor}</p>
+                                    <p>{item.descricao}</p>
                                     <p>{item.produto}</p>
                                     {user?.role != "manager" && <button className="btn-edit">Editar</button>}
                                 </div>
