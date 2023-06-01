@@ -27,7 +27,7 @@ const Router = () => (
         <Route path="/movies" exact component={Movie}/>
         <Route path="/employee" exact component={Employee}/>
         <Route path="/profile" exact component={Profile}/>
-        <Route path="/products-table" exact component={ProductsTable}/>
+        <Route path="/productsTable" exact component={ProductsTable}/>
         <Route path="/profileEmployee" exact component={ProfileEmployee}/>
         <Route path="/movieTable" exact component={MovieTable}/>
 
