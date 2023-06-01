@@ -16,7 +16,8 @@ function Enter() {
 
     setUser({
       name: "Teste",
-      email
+      email,
+      role: "manager"
     })
   }
 

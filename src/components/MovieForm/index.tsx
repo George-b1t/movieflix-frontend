@@ -2,28 +2,15 @@ import { useState, useContext } from "react";
 import styles from "./styles.module.scss";
 import { AppContext } from "../../context/AppContext";
 
-interface Movie {
-  nome: string;
-  nota: string;
-  lancamento: string;
-  diretor: string;
-  faixaEtaria: string;
-  descricao: string;
-}
+function MovieForm() {
+  const { setIsMovieFormOpen, currentMovie } = useContext(AppContext);
 
-interface MovieFormProps {
-  movie: Movie | null;
-}
-
-function MovieForm({ movie }: MovieFormProps) {
-  const { setIsMovieFormOpen } = useContext(AppContext);
-
-  const [ nome, setNome ] = useState(movie?.nome || "");
-  const [ nota, setNota ] = useState(movie?.nota || "");
-  const [ lancamento, setLancamento ] = useState(movie?.lancamento || "");
-  const [ diretor, setDiretor ] = useState(movie?.diretor || "");
-  const [ faixaEtaria, setFaixaEtaria ] = useState(movie?.faixaEtaria || "");
-  const [ descricao, setDescricao ] = useState(movie?.descricao || "");
+  const [ nome, setNome ] = useState(currentMovie?.nome || "");
+  const [ nota, setNota ] = useState(currentMovie?.nota || "");
+  const [ lancamento, setLancamento ] = useState(currentMovie?.lancamento || "");
+  const [ diretor, setDiretor ] = useState(currentMovie?.diretor || "");
+  const [ faixaEtaria, setFaixaEtaria ] = useState(currentMovie?.faixaEtaria || "");
+  const [ descricao, setDescricao ] = useState(currentMovie?.descricao || "");
 
   return (
     <div className={styles.container}>

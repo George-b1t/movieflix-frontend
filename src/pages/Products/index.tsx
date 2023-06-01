@@ -4,6 +4,7 @@ import { Footer } from "../../components/Footer";
 import { useContext } from "react";
 import { AppContext, Cart } from "../../context/AppContext";
 import { toast } from "react-toastify";
+import { SnackForm } from "../../components/SnackForm";
 
 interface Product {
   name: string;
@@ -52,7 +53,12 @@ function Products() {
     },
   ]
 
-  const { setCart } = useContext(AppContext);
+  const {
+    user,
+    setCart,
+    isSnackFormOpen,
+    setIsSnackFormOpen
+  } = useContext(AppContext);
 
   function addProduct(nProduct: Product) {
     setCart(
@@ -78,6 +84,8 @@ function Products() {
 
   return (
     <div className={styles.container}>
+      {isSnackFormOpen && <SnackForm snack={null} />}
+
       <Header />
       <h1 className={styles.TitleSnack}>Snack Bar</h1>
       <div className={styles.rowPopUp}>
@@ -103,11 +111,16 @@ function Products() {
           </div>
         ))
       }
-      <div className={styles.comboPopUp}>
-        <div className={styles.fieldImageAdd}>
-          <img className={styles.addImage} src="/add.png" alt="add" />
-        </div>
-      </div>
+
+      {
+        (user?.role === "manager" || user?.role === "employee") && (
+          <div className={styles.comboPopUp}>
+            <div className={styles.fieldImageAdd}>
+              <img onClick={() => setIsSnackFormOpen(true)} className={styles.addImage} src="/add.png" alt="add" />
+            </div>
+          </div>
+        )
+      }
 
       </div>
 

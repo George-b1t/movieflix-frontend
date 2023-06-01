@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useState } from "react";
+import { Movie } from "../pages/Movie";
 
 export interface Cart {
   name: string;
@@ -13,6 +14,7 @@ interface Filial {
 interface User {
   name: string;
   email: string;
+  role: "user" | "admin" | "manager" | "employee";
 }
 
 interface AppContextData {
@@ -20,12 +22,18 @@ interface AppContextData {
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   cart: Cart[];
   setCart: React.Dispatch<React.SetStateAction<Cart[]>>
-  isMovieFormOpen: boolean;
-  setIsMovieFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
   currentFilial: string;
   setCurrentFilial: React.Dispatch<React.SetStateAction<string>>;
   filiais: Filial[];
   setFiliais: React.Dispatch<React.SetStateAction<Filial[]>>;
+
+  isMovieFormOpen: boolean;
+  setIsMovieFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isSnackFormOpen: boolean;
+  setIsSnackFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  currentMovie: Movie | null;
+  setCurrentMovie: React.Dispatch<React.SetStateAction<Movie | null>>;
 }
 
 const AppContext = createContext({} as AppContextData);
@@ -41,6 +49,9 @@ function AppContextProvider({ children }: AppContextProviderProps) {
   const [ user, setUser ] = useState<User | null>(null);
 
   const [ isMovieFormOpen, setIsMovieFormOpen ] = useState(false);
+  const [ isSnackFormOpen, setIsSnackFormOpen ] = useState(false);
+
+  const [ currentMovie, setCurrentMovie ] = useState<Movie | null>(null);
 
   return (
     <AppContext.Provider value={{
@@ -53,7 +64,11 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       currentFilial,
       setCurrentFilial,
       filiais,
-      setFiliais
+      setFiliais,
+      isSnackFormOpen,
+      setIsSnackFormOpen,
+      currentMovie,
+      setCurrentMovie
     }}>
       {children}
     </AppContext.Provider>

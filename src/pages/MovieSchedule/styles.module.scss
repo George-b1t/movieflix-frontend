@@ -8,6 +8,31 @@
 
   height: 100vh;
 
+  .editButton {
+    width: 100px;
+    height: 50px;
+    border-radius: 6px;
+
+    margin: 0 0 2rem 11rem;
+
+    background: #FD9B3A;
+
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .3s ease;
+
+    &:hover, &:focus {
+      background: #fff;
+      color: #000;
+    }
+  }
+
   .content {
     display: flex;
     align-items: center;
