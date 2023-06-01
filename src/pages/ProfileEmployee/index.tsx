@@ -7,6 +7,21 @@ function ProfileEmployee(){
             <div className={styles.container}>
                 <Header />
                 
+                    <section>
+
+                        <div className={styles.guga}>
+                            <h2>GUGA</h2>
+                        </div>
+
+                        <article>
+                            <a href="">Funcionários</a>
+                            <a href="">Produtos</a>
+                            <a href="">Filmes</a>
+                        </article>
+
+                        <button>Logout</button>
+
+                    </section>
             
                 <Footer />
             </div>
