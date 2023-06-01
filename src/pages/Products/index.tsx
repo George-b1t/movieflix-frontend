@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { SnackForm } from "../../components/SnackForm";
 
 function Products() {
-  const { user, setCart, isSnackFormOpen, setIsSnackFormOpen, products, setCurrentProduct } = useContext(AppContext);
+  const { user, setCart, isSnackFormOpen, setIsSnackFormOpen, products } = useContext(AppContext);
 
   function addProduct(nProduct: ProductProps) {
     setCart(
@@ -31,11 +31,6 @@ function Products() {
     toast.success("Produto adicionado ao carrinho");
   }
 
-  function editProduct(product: ProductProps) {
-    setCurrentProduct(product);
-    setIsSnackFormOpen(true);
-  }
-
   return (
     <div className={styles.container}>
       {isSnackFormOpen && <SnackForm />}
@@ -46,9 +41,6 @@ function Products() {
       {
         products.map((product, index) => (
           <div key={index} className={styles.comboPopUp}>
-            {(user?.role === "manager" || user?.role === "employee") && (
-              <button onClick={() => editProduct(product)} className={styles.buttonEditar}>Editar</button>
-            )}
             <div className={styles.insidePopUp}>
               <div className={styles.insideHalfLeftPopUp}><img src={product.srcSnack} alt="" /></div>
               <div className={styles.insideHalfRightPopUp}>
