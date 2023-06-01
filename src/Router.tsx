@@ -14,6 +14,7 @@ import { Employee } from "./pages/Employee"
 import { Profile } from "./pages/Profile"
 import { ProductsTable } from "./pages/ProductsTable"
 import { ProfileEmployee } from "./pages/ProfileEmployee"
+import { MovieTable } from "./pages/MovieTable"
 
 const Router = () => (
     <HashRouter>
@@ -28,6 +29,9 @@ const Router = () => (
         <Route path="/profile" exact component={Profile}/>
         <Route path="/products-table" exact component={ProductsTable}/>
         <Route path="/profileEmployee" exact component={ProfileEmployee}/>
+        <Route path="/movieTable" exact component={MovieTable}/>
+
+        
 
         
 
