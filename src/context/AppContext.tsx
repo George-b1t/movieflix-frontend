@@ -10,7 +10,15 @@ export interface Cart {
 
 interface Filial {
   id: string;
-  cidade: string;
+  nome: string;
+}
+
+export interface ProductProps {
+  id: string;
+  nome: string;
+  preco: number;
+  descricao: string;
+  srcSnack: string;
 }
 
 interface Emploee {
@@ -56,6 +64,14 @@ interface AppContextData {
 
   saveMovie(movie: MovieProps): void;
   updateMovie(movie: MovieProps): void;
+  
+  saveProduct(product: ProductProps): void;
+  updateProduct(product: ProductProps): void;
+
+  products: ProductProps[];
+  setProducts: React.Dispatch<React.SetStateAction<ProductProps[]>>;
+  currentProduct: ProductProps | null;
+  setCurrentProduct: React.Dispatch<React.SetStateAction<ProductProps | null>>;
 }
 
 const AppContext = createContext({} as AppContextData);
@@ -75,13 +91,16 @@ function AppContextProvider({ children }: AppContextProviderProps) {
   const [ isEmployeeFormOpen, setIsEmployeeFormOpen ] = useState(false);
 
   const [ currentMovie, setCurrentMovie ] = useState<MovieProps | null>(null);
+  const [ currentProduct, setCurrentProduct ] = useState<ProductProps | null>(null);
   const [ employees, setEmployees ] = useState<Emploee[]>([]);
   const [ currentEmployee, setCurrentEmployee ] = useState<Emploee | null>(null);
 
   const [ movies, setMovies ] = useState<MovieProps[]>([]);
+  const [ products, setProducts ] = useState<ProductProps[]>([]);
 
   useEffect(() => {
     getMovies();
+    getProducts();
   }, [currentFilial]);
 
   useEffect(() => {
@@ -100,10 +119,16 @@ function AppContextProvider({ children }: AppContextProviderProps) {
 
     api.get(`/catalogo/${currentFilial?.id}`)
       .then(response => {
-        setMovies(response.data.map((movie: any) => ({
-          ...movie.filmeId,
-          dataLancamento: movie.filmeId.dataLancamento.split("-").reverse().join("-"),
-        })));
+        setMovies(response.data.map((movie: any) => movie.filmeId));
+      })
+  }
+
+  function getProducts() {
+    if (currentFilial === null) return;
+
+    api.get(`/estoque/${currentFilial?.id}`)
+      .then(response => {
+        setProducts(response.data.map((produto: any) => produto.produtoId));
       })
   }
 
@@ -126,6 +151,28 @@ function AppContextProvider({ children }: AppContextProviderProps) {
         getMovies();
         setIsMovieFormOpen(false);
         setCurrentMovie(null);
+      })
+  }
+
+  function saveProduct(product: ProductProps) {
+    if (product === null) return;
+
+    api.post("/produto", product)
+      .then(() => {
+        getProducts();
+        setIsSnackFormOpen(false);
+        setCurrentProduct(null);
+      })
+  }
+
+  function updateProduct(product: ProductProps) {
+    if (product === null) return;
+
+    api.put(`/produto/${product.id}`, product)
+      .then(() => {
+        getProducts();
+        setIsSnackFormOpen(false);
+        setCurrentProduct(null);
       })
   }
 
@@ -154,7 +201,13 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       isEmployeeFormOpen,
       setIsEmployeeFormOpen,
       saveMovie,
-      updateMovie
+      updateMovie,
+      products,
+      setProducts,
+      currentProduct,
+      setCurrentProduct,
+      saveProduct,
+      updateProduct
     }}>
       {children}
     </AppContext.Provider>

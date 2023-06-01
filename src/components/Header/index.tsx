@@ -17,11 +17,11 @@ function Header() {
 
       <nav>
         <p className={styles.selectFilial}>
-          Local: {currentFilial?.cidade}
+          Local: {currentFilial?.nome}
 
           <div className={styles.listFiliais}>
             {filiais.map((filial) => (
-              <p onClick={() => setCurrentFilial(filial)}>{filial.cidade}</p>
+              <p onClick={() => setCurrentFilial(filial)}>{filial.nome}</p>
             ))}
           </div>
         </p>

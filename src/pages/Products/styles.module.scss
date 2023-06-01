@@ -4,8 +4,8 @@
   gap: 1rem;
   align-items: center;
   justify-content: space-between;
+  height: 100vh;
   
-
   background-color: black;
 
   .TitleSnack{
@@ -42,6 +42,25 @@
     justify-content: space-between;
     height: 320px; 
     padding-bottom: 10px;
+
+    position: relative;
+
+    .buttonEditar {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+
+      background: #EA9138;
+      color: #000;
+      padding: 10px;
+      border-radius: 5px;
+
+      transition: .1s ease;
+
+      &:hover {
+        filter: brightness(0.8);
+      }
+    }
 
     .fieldImageAdd {
       flex: 1;
