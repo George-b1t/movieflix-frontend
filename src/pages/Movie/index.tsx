@@ -5,7 +5,7 @@ import { Footer } from "../../components/Footer";
 import { MovieForm } from "../../components/MovieForm";
 import { AppContext } from "../../context/AppContext";
 
-export interface Movie {
+export interface MovieProps {
   id: string;
   nome: string;
   nota: string;

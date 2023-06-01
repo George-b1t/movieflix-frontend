@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { Movie } from "../pages/Movie";
+import { MovieProps } from "../pages/Movie";
 import { api } from "../services/api";
 
 export interface Cart {
@@ -45,10 +45,10 @@ interface AppContextData {
   isEmployeeFormOpen: boolean;
   setIsEmployeeFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
 
-  movies: Movie[];
-  setMovies: React.Dispatch<React.SetStateAction<Movie[]>>;
-  currentMovie: Movie | null;
-  setCurrentMovie: React.Dispatch<React.SetStateAction<Movie | null>>;
+  movies: MovieProps[];
+  setMovies: React.Dispatch<React.SetStateAction<MovieProps[]>>;
+  currentMovie: MovieProps | null;
+  setCurrentMovie: React.Dispatch<React.SetStateAction<MovieProps | null>>;
   employees: Emploee[];
   setEmployees: React.Dispatch<React.SetStateAction<Emploee[]>>;
   currentEmployee: Emploee | null;
@@ -71,11 +71,11 @@ function AppContextProvider({ children }: AppContextProviderProps) {
   const [ isSnackFormOpen, setIsSnackFormOpen ] = useState(false);
   const [ isEmployeeFormOpen, setIsEmployeeFormOpen ] = useState(false);
 
-  const [ currentMovie, setCurrentMovie ] = useState<Movie | null>(null);
+  const [ currentMovie, setCurrentMovie ] = useState<MovieProps | null>(null);
   const [ employees, setEmployees ] = useState<Emploee[]>([]);
   const [ currentEmployee, setCurrentEmployee ] = useState<Emploee | null>(null);
 
-  const [ movies, setMovies ] = useState<Movie[]>([]);
+  const [ movies, setMovies ] = useState<MovieProps[]>([]);
 
   useEffect(() => {
     getMovies();
