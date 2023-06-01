@@ -115,7 +115,7 @@ function MovieSchedule() {
 
             <div>
               <h1>{currentMovie?.nome}</h1>
-              <p>{currentMovie?.descricao}</p>
+              <p>{currentMovie?.sinopse}</p>
               <span>{currentMovie?.faixaEtaria}</span>
             </div>
           </div>

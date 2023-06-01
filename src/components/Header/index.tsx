@@ -1,6 +1,5 @@
-import { useEffect, useContext } from "react"
+import { useContext } from "react"
 
-import { api } from "../../services/api";
 import styles from "./styles.module.scss"
 import { AppContext } from "../../context/AppContext";
 
@@ -9,19 +8,8 @@ function Header() {
     setCurrentFilial,
     currentFilial,
     filiais,
-    setFiliais,
     user
   } = useContext(AppContext);
-
-  useEffect(() => {
-    if (filiais.length > 0) return;
-
-    api.get("/filial")
-      .then(response => {
-        setFiliais(response.data.content)
-        setCurrentFilial(response.data.content[0].cidade)
-      });
-  }, [])
 
   return (
     <div className={styles.container}>
@@ -29,11 +17,11 @@ function Header() {
 
       <nav>
         <p className={styles.selectFilial}>
-          Local: {currentFilial}
+          Local: {currentFilial?.cidade}
 
           <div className={styles.listFiliais}>
             {filiais.map((filial) => (
-              <p onClick={() => setCurrentFilial(filial.cidade)}>{filial.cidade}</p>
+              <p onClick={() => setCurrentFilial(filial)}>{filial.cidade}</p>
             ))}
           </div>
         </p>
