@@ -1,7 +1,6 @@
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { EmployeeForm } from "../../components/EmployeeForm";
 import { AppContext } from "../../context/AppContext";
 import { useContext } from "react";
 import { MovieForm } from "../../components/MovieForm";
