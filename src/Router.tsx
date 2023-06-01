@@ -13,6 +13,7 @@ import { Home } from "./pages/Home"
 import { Employee } from "./pages/Employee"
 import { Profile } from "./pages/Profile"
 import { ProductsTable } from "./pages/ProductsTable"
+import { ProfileEmployee } from "./pages/ProfileEmployee"
 
 const Router = () => (
     <HashRouter>
@@ -26,6 +27,7 @@ const Router = () => (
         <Route path="/employee" exact component={Employee}/>
         <Route path="/profile" exact component={Profile}/>
         <Route path="/products-table" exact component={ProductsTable}/>
+        <Route path="/profileEmployee" exact component={ProfileEmployee}/>
 
         
 
