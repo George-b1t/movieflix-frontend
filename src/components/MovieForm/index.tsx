@@ -13,6 +13,8 @@ function MovieForm() {
   const [ diretor, setDiretor ] = useState(currentMovie?.diretor || "");
   const [ faixaEtaria, setFaixaEtaria ] = useState(currentMovie?.faixaEtaria || "");
   const [ sinopse, setSinopse ] = useState(currentMovie?.sinopse || "");
+  const [ srcCapa, setSrcCapa ] = useState(currentMovie?.srcCapa || "");
+  const [ dublado, setDublado ] = useState(currentMovie?.dublado || false);
 
   function handleClick() {
     if (isEditing) {
@@ -32,7 +34,7 @@ function MovieForm() {
       faixaEtaria,
       sinopse,
       srcCapa: "https://www.themoviedb.org/t/p/w220_and_h330_face/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg",
-      dublado: false
+      dublado
     };
     
     saveMovie(newMovie);
@@ -48,7 +50,7 @@ function MovieForm() {
       faixaEtaria,
       sinopse,
       srcCapa: "https://www.themoviedb.org/t/p/w220_and_h330_face/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg",
-      dublado: false,
+      dublado,
     };
 
     updateMovie(updatedMovie);
@@ -65,9 +67,13 @@ function MovieForm() {
           <input type="date" name="lancamento" value={dataLancamento} onChange={e => setDataLancamento(e.target.value)} placeholder="Data de Lançamento" />
           <input type="text" name="diretor" value={diretor} onChange={e => setDiretor(e.target.value)} placeholder="Diretor" />
           <input type="number" name="faixaEtaria" value={faixaEtaria} onChange={e => setFaixaEtaria(e.target.value)} placeholder="Faixa Etária" />
+          <input type="text" name="capa" value={srcCapa} onChange={e => setSrcCapa(e.target.value)} placeholder="Link imagem" />
           <textarea name="descricao" value={sinopse} onChange={e => setSinopse(e.target.value)} placeholder="Descrição" />
-
-          <div>
+          <div className={styles.check}> 
+            <input type="checkbox" name="dublado" checked={dublado} onChange={e => setDublado(e.target.checked)}/>
+            <p>Dublado</p>
+          </div>
+                    <div>
             <input className={styles.closeButton} type="button" value="Fechar" onClick={() => setIsMovieFormOpen(false)} />
             <input type="button" value="Enviar" onClick={() => handleClick()} />
           </div>
