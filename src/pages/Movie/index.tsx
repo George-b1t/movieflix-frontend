@@ -14,7 +14,7 @@ export interface MovieProps {
   faixaEtaria: string;
   sinopse: string;
   srcCapa: string;
-  isDublado: boolean;
+  dublado: boolean;
 }
 
 function Movie() {

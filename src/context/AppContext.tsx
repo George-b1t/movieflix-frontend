@@ -53,6 +53,9 @@ interface AppContextData {
   setEmployees: React.Dispatch<React.SetStateAction<Emploee[]>>;
   currentEmployee: Emploee | null;
   setCurrentEmployee: React.Dispatch<React.SetStateAction<Emploee | null>>;
+
+  saveMovie(movie: MovieProps): void;
+  updateMovie(movie: MovieProps): void;
 }
 
 const AppContext = createContext({} as AppContextData);
@@ -79,7 +82,7 @@ function AppContextProvider({ children }: AppContextProviderProps) {
 
   useEffect(() => {
     getMovies();
-  }, [currentFilial, getMovies]);
+  }, [currentFilial]);
 
   useEffect(() => {
     if (filiais.length > 0) return;
@@ -97,14 +100,17 @@ function AppContextProvider({ children }: AppContextProviderProps) {
 
     api.get(`/catalogo/${currentFilial?.id}`)
       .then(response => {
-        setMovies(response.data.map((movie: any) => movie.filmeId));
+        setMovies(response.data.map((movie: any) => ({
+          ...movie.filmeId,
+          dataLancamento: movie.filmeId.dataLancamento.split("-").reverse().join("-"),
+        })));
       })
   }
 
-  function saveMovie() {
-    if (currentMovie === null) return;
+  function saveMovie(movie: MovieProps) {
+    if (movie === null) return;
 
-    api.post("/filme", currentMovie)
+    api.post("/filme", movie)
       .then(() => {
         getMovies();
         setIsMovieFormOpen(false);
@@ -112,10 +118,10 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       })
   }
 
-  function updateMovie() {
-    if (currentMovie === null) return;
+  function updateMovie(movie: MovieProps) {
+    if (movie === null) return;
 
-    api.put(`/filme/${currentMovie.id}`, currentMovie)
+    api.put(`/filme/${movie.id}`, movie)
       .then(() => {
         getMovies();
         setIsMovieFormOpen(false);
@@ -146,7 +152,9 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       currentEmployee,
       setCurrentEmployee,
       isEmployeeFormOpen,
-      setIsEmployeeFormOpen
+      setIsEmployeeFormOpen,
+      saveMovie,
+      updateMovie
     }}>
       {children}
     </AppContext.Provider>
