@@ -1,6 +1,7 @@
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
+import { EmployeeForm } from "../../components/EmployeeForm";
 
 function Employee(){
 
@@ -107,8 +108,9 @@ function Employee(){
 
 
     return (
-            <div className={styles.container}>
+            <div className={styles.container} >
                 <Header />
+                <EmployeeForm />
                 <div className={styles.content}>
                     
                     <div className={styles.pageHeader}>
