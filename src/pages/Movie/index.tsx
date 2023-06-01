@@ -6,6 +6,7 @@ import { MovieForm } from "../../components/MovieForm";
 import { AppContext } from "../../context/AppContext";
 
 export interface MovieProps {
+  id: string;
   nome: string;
   nota: string;
   dataLancamento: string;
@@ -13,6 +14,7 @@ export interface MovieProps {
   faixaEtaria: string;
   sinopse: string;
   srcCapa: string;
+  isDublado: boolean;
 }
 
 function Movie() {
