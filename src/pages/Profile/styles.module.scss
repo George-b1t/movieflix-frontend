@@ -1,0 +1,118 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  
+
+    background-color: black;
+    
+    height: 100vh;
+
+
+    .content{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    
+    }
+
+    .profileHeader{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .profileBody{
+        display: flex;
+        gap: 2px;
+        padding-bottom: 2px;
+
+        p{
+            display: flex;
+            color: white;
+            background: #373737;
+            height: 50px;
+            width: 298px;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    }
+    
+    .profileTitle{
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
+        color: white;
+        text-align: start;
+        padding: 0 0 0px 0px;
+    }
+
+    .buttonSair{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100px;
+        height: 50px;
+        background: #EA9138;
+        border-radius: 5px;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+        transition: .1s ease;
+        
+
+        &:hover{
+            background: #e2b282;
+        }
+    }
+
+    .profileTable{
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        max-height: 600px;
+        overflow-y: scroll;
+    
+
+    }
+
+    .profileHeader{
+        display: flex;
+        gap: 2px;
+        padding-bottom: 2px;
+
+        p{
+            display: flex;
+            color: white;
+            background: #1b1b1b;
+            height: 50px;
+            width: 298px;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        
+        }
+    }
+
+
+
+    .profileName{
+        color: #ffffff;
+        font-size: 50px;
+    }
+
+    .profilePage{
+        display: flex;
+        color: white;
+        text-align: center;
+        padding: 0 0 10px 20px;
+        
+    }
+}
+
