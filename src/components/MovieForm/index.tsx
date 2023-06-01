@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import { AppContext } from "../../context/AppContext";
 
 function MovieForm() {
-  const { setIsMovieFormOpen, currentMovie, setMovies, setCurrentMovie } = useContext(AppContext);
+  const { setIsMovieFormOpen, currentMovie, updateMovie, saveMovie } = useContext(AppContext);
 
   const isEditing = !!currentMovie;
 
@@ -16,15 +16,13 @@ function MovieForm() {
 
   function handleClick() {
     if (isEditing) {
-      updateMovie();
+      updateMovieHandle();
     } else {
-      addMovie();
+      addMovieHandle();
     }
-
-    setIsMovieFormOpen(false);
   }
 
-  function addMovie() {
+  function addMovieHandle() {
     const newMovie = {
       id: "",
       nome,
@@ -34,13 +32,13 @@ function MovieForm() {
       faixaEtaria,
       sinopse,
       srcCapa: "https://www.themoviedb.org/t/p/w220_and_h330_face/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg",
-      isDublado: false
+      dublado: false
     };
-
-    setMovies(oldValue => [...oldValue, newMovie]);
+    
+    saveMovie(newMovie);
   }
 
-  function updateMovie() {
+  function updateMovieHandle() {
     const updatedMovie = {
       id: isEditing ? currentMovie?.id : "",
       nome,
@@ -50,20 +48,10 @@ function MovieForm() {
       faixaEtaria,
       sinopse,
       srcCapa: "https://www.themoviedb.org/t/p/w220_and_h330_face/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg",
-      isDublado: false,
+      dublado: false,
     };
 
-    setMovies(oldValue => oldValue.map(movie => {
-      if (movie.nome === currentMovie?.nome) {
-        return updatedMovie;
-      }
-
-      return movie;
-    }));
-
-    setCurrentMovie({
-      ...updatedMovie,
-    })
+    updateMovie(updatedMovie);
   }
 
   return (
