@@ -1,0 +1,148 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  
+
+    background-color: black;
+    
+    height: 100vh;
+
+    .content {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    
+    }
+
+    .productsTableTable{
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        max-height: 600px;
+        width: 90vw;
+        max-width: 1366px;
+        overflow-y: scroll;
+    }
+
+    .productsTableHeader{
+        display: flex;
+        gap: 2px;
+        padding-bottom: 2px;
+
+        p {
+            display: flex;
+            color: white;
+            background: #1b1b1b;
+            height: 50px;
+            width: 25%;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+        }
+
+        &:not(:has(:nth-child(5))) {
+            p {
+                width: calc(25% - 25px);
+            }
+        }
+
+        &:has(:nth-child(5)) {
+            :nth-child(5) {
+                display: flex;
+            color: white;
+            background: #1b1b1b;
+            height: 50px;
+            width: 100px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+            }
+        }
+    }
+
+    .productsTableBody{
+        display: flex;
+        gap: 2px;
+        padding-bottom: 2px;
+        
+
+        
+        p,button{
+            &:not(:has(:nth-child(5))) {
+                display: flex;
+                color: white;
+                background: #373737;
+                height: 100px;
+                width: 25%;
+                align-items: center;
+                justify-content: center;
+                border-radius: 2px;
+            }
+
+            &:has(:nth-child(5)) {
+                display: flex;
+                color: white;
+                background: #373737;
+                height: 100px;
+                width: calc(25% - 25px);
+                align-items: center;
+                justify-content: center;
+                border-radius: 2px;
+            }
+
+            &:nth-child(5){
+                width: 100px;
+                
+                transition: .1s ease;
+
+                &:hover{
+                    color: black;
+                    background: #e2b282;
+                }
+            }
+        }
+    }
+    
+    p{
+        color: white;
+    }
+
+    .pageHeader{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        position: relative;
+    }
+
+
+    .title{
+        color: white;
+        text-align: start;
+        padding: 0 0 20px 20px;
+    }
+
+    .buttonCadastrar{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 200px;
+        height: 50px;
+        background: #EA9138;
+        border-radius: 5px;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+        transition: .1s ease;
+        position: absolute;
+        right: 0;
+        
+
+        &:hover{
+            background: #e2b282;
+        }
+    }
+}
