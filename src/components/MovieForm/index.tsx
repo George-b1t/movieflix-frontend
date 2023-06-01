@@ -26,13 +26,15 @@ function MovieForm() {
 
   function addMovie() {
     const newMovie = {
+      id: "",
       nome,
       nota,
       dataLancamento,
       diretor,
       faixaEtaria,
       sinopse,
-      srcCapa: "https://www.themoviedb.org/t/p/w220_and_h330_face/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg"
+      srcCapa: "https://www.themoviedb.org/t/p/w220_and_h330_face/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg",
+      isDublado: false
     };
 
     setMovies(oldValue => [...oldValue, newMovie]);
@@ -40,13 +42,15 @@ function MovieForm() {
 
   function updateMovie() {
     const updatedMovie = {
+      id: isEditing ? currentMovie?.id : "",
       nome,
       nota,
       dataLancamento,
       diretor,
       faixaEtaria,
       sinopse,
-      srcCapa: "https://www.themoviedb.org/t/p/w220_and_h330_face/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg"
+      srcCapa: "https://www.themoviedb.org/t/p/w220_and_h330_face/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg",
+      isDublado: false,
     };
 
     setMovies(oldValue => oldValue.map(movie => {
