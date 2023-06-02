@@ -20,7 +20,7 @@ function Profile(){
     const [ pedidos, setPedidos ] = useState<Pedido[]>([]);
 
     useEffect(() => {
-        api.get("/compra")
+        api.get("/compra?size=100000")
             .then(response => {
                 setCompras(response.data.content)
 

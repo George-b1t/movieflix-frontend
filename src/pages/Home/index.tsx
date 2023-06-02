@@ -9,9 +9,9 @@ function Home(){
                 
                 <div className={styles.box}> 
                 
-                    <p> Trem Bala </p>
+                    <p> Batman</p>
 
-                    <button className={styles.buyTicketButton}>Comprar Ingresso</button>
+                    <a href="#/movies "> <button className={styles.buyTicketButton}>Comprar Ingresso</button> </a>
 
                 </div>
                 <Footer />
