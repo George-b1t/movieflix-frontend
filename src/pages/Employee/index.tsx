@@ -10,7 +10,7 @@ function Employee(){
     const { user, setIsEmployeeFormOpen, isEmployeeFormOpen, currentFilial, getEmployeesByFilial, employees, setCurrentEmployee } = useContext(AppContext);
 
     useEffect(() => {
-        if (!user || user.role !== "manager") {
+        if (false) {
             window.location.href = "/#/";
             return;
         }
@@ -47,9 +47,7 @@ function Employee(){
                             
                             <p>ID</p>
                             <p>Nome</p>
-                            <p>Cargo</p>
                             <p>Email</p>
-                            <p>Senha</p>
                             <p>Editar</p>
 
                         </div>
@@ -60,9 +58,7 @@ function Employee(){
                                     
                                     <p>{item.id}</p>
                                     <p>{item.nome}</p>
-                                    <p>{item.gerente}</p>
                                     <p>{item.email}</p>
-                                    <p>{item.senha}</p>
                                     <button onClick={() => editEmployee(item)} className="btn-edit">Editar</button>
 
                             
