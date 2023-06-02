@@ -7,9 +7,14 @@ import { MovieForm } from "../../components/MovieForm";
 import { MovieProps } from "../Movie";
 
 function MovieTable(){
-    const { setIsMovieFormOpen, isMovieFormOpen, getMovies, allMovies, setCurrentMovie } = useContext(AppContext);
+    const { user, setIsMovieFormOpen, isMovieFormOpen, getMovies, allMovies, setCurrentMovie } = useContext(AppContext);
 
     useEffect(() => {
+        if (!user || (user.role !== "manager" && user.role !== "func")) {
+            window.location.href = "/#/";
+            return;
+        }
+
         getMovies()
     }, []);
 

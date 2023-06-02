@@ -6,6 +6,7 @@ export interface Cart {
   name: string;
   price: number;
   quantity: number;
+  type: "movie" | "snack";
 }
 
 interface Filial {
@@ -19,6 +20,7 @@ export interface ProductProps {
   preco: number;
   descricao: string;
   srcSnack: string;
+  estoqueId?: string;
 }
 
 export interface Emploee {
@@ -31,9 +33,9 @@ export interface Emploee {
 }
 
 interface User {
-  name: string;
+  nome: string;
   email: string;
-  role: "user" | "admin" | "manager" | "employee";
+  role: "user" | "admin" | "manager" | "func";
 }
 
 interface AppContextData {
@@ -93,6 +95,9 @@ interface AppContextData {
   setIsSelectProductFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
 
   addEstoque(productId: string): void;
+  removeCatalogo(id: string | null): void;
+
+  getEmployeesByFilial(): void;
 }
 
 const AppContext = createContext({} as AppContextData);
@@ -140,7 +145,6 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       });
   }, [])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   function getMoviesByFilial() {
     if (currentFilial === null) return;
 
@@ -148,10 +152,21 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       .then(response => {
         setMovies(response.data.map((item: any) => ({
           ...item.filmeId,
-          dataLancamento: item.filmeId.dataLancamento.split("T")[0]
+          dataLancamento: item.filmeId.dataLancamento.split("T")[0],
+          catalogoId: item.id
         })));
       })
   }
+
+  function getEmployeesByFilial() {
+    if (currentFilial === null) return;
+
+    api.get(`/funcionario/filial/${currentFilial?.id}`)
+      .then(response => {
+        setEmployees(response.data);
+      })
+  }
+    
 
   function getMovies() {
     api.get("/filme")
@@ -168,7 +183,10 @@ function AppContextProvider({ children }: AppContextProviderProps) {
 
     api.get(`/estoque/${currentFilial?.id}`)
       .then(response => {
-        setProducts(response.data.map((produto: any) => produto.produtoId));
+        setProducts(response.data.map((produto: any) => ({
+          ...produto.produtoId,
+          estoqueId: produto.id
+        })));
       })
   }
 
@@ -176,6 +194,15 @@ function AppContextProvider({ children }: AppContextProviderProps) {
     api.get(`/produto`)
       .then(response => {
         setAllProducts(response.data.content);
+      })
+  }
+
+  function removeCatalogo(id: string | null) {
+    if (id === null) return;
+
+    api.delete(`/catalogo/${id}`)
+      .then(() => {
+        getMoviesByFilial();
       })
   }
 
@@ -303,7 +330,9 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       getMoviesByFilial,
       isSelectProductFormOpen,
       setIsSelectProductFormOpen,
-      addEstoque
+      addEstoque,
+      removeCatalogo,
+      getEmployeesByFilial
     }}>
       {children}
     </AppContext.Provider>

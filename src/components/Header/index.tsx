@@ -21,18 +21,22 @@ function Header() {
         <p className={styles.selectFilial}>
           Local: {currentFilial?.nome}
 
-          <div className={styles.listFiliais}>
-            {filiais.map((filial) => (
-              <p onClick={() => setCurrentFilial(filial)}>{filial.nome}</p>
-            ))}
-          </div>
+          {
+            (!user || user.role === "user") && (
+              <div className={styles.listFiliais}>
+                {filiais.map((filial) => (
+                  <p onClick={() => setCurrentFilial(filial)}>{filial.nome}</p>
+                ))}
+              </div>
+            )
+          }
         </p>
         <a href="/#/movies">Filmes</a>
         <a href="/#/products">Snacks</a>
         <a href="/#/cart">Carrinho</a>
       </nav>
 
-      <a className={styles.login} href={hrefToUser}>{user ? user.name : "Entrar"}</a>
+      <a className={styles.login} href={hrefToUser}>{user ? user.nome : "Entrar"}</a>
     </div>
   )
 }

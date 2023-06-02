@@ -1,26 +1,44 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Header } from "../../components/Header"
 import styles from "./styles.module.scss"
 import { AppContext } from "../../context/AppContext";
+import { api } from "../../services/api";
+import { toast } from "react-toastify";
 
 function Enter() {
-  const { setUser } = useContext(AppContext);
+  const { user, setUser, setCurrentFilial } = useContext(AppContext);
 
   const [ isRegister, setIsRegister ] = useState(false);
 
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
 
+  useEffect(() => {
+    if (user) {
+      window.location.href = "/#/";
+    }
+  }, []);
+
   function enter() {
     if (isRegister) return;
 
-    setUser({
-      name: "Teste",
+    api.post("/login", {
       email,
-      role: "employee"
-    })
+      senha: password
+    }).then(response => {
+      setUser(response.data);
 
-    window.location.href = "/#/profileEmployee";
+      if (response.data.role === "manager" || response.data.role === "func") {
+        setCurrentFilial(response.data.filial);
+        window.location.href = "/#/profileEmployee";
+      }
+      else window.location.href = "/#/profile";
+
+      toast.success("Login realizado com sucesso");
+    })
+    .catch(err => {
+      toast.error("Email ou senha incorretos");
+    })
   }
 
   return (

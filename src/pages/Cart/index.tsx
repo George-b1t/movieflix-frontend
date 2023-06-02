@@ -13,6 +13,11 @@ function Cart(){
 	function changeQuantity(index: number, quantity: number) {
 		if (quantity == 0) return;
 		const newItems = [...cart];
+		
+		const item = newItems[index];
+
+		if (item.type === "movie") return;
+
 		newItems[index].quantity = quantity;
 		setCart(newItems);
 	}

@@ -17,7 +17,7 @@ interface Session {
 }
 
 function MovieSchedule() {
-  const { setCart, setIsMovieFormOpen, isMovieFormOpen, currentMovie } = useContext(AppContext);
+  const { user, cart, setCart, isMovieFormOpen, currentMovie } = useContext(AppContext);
 
   const [ seats, setSeats ] = useState<Seat[]>([]);
   const [ days, setDays ] = useState<string[]>([]);
@@ -88,14 +88,46 @@ function MovieSchedule() {
     return selectedSession?.room === session.room && selectedSession?.time === session.time;
   }
 
+  function resetSelectedSeats() {
+    setSeats(oldValue => oldValue.map(seat => {
+      if (seat.status === "selected") {
+        return { ...seat, status: "free" };
+      }
+
+      return seat;
+    }));
+  }
+
   function setCartItems() {
+    if (user?.role === "manager" || user?.role === "func") {
+      toast.error("Funcionários não podem comprar ingressos!");
+      return;
+    }
+
     toast.success("Ingresso adicionado ao carrinho com sucesso!");
 
-    setCart(oldValue => [...oldValue, {
-      name: "Guardiões da Galáxia",
-      price: 20.00,
-      quantity: seats.filter(seat => seat.status === "selected").length,
-    }]);
+    const alreadyInCart = cart.find(item => item.name === currentMovie?.nome);
+
+    if (alreadyInCart) {
+      setCart(oldValue => oldValue.map(item => {
+        if (item.name === currentMovie?.nome) {
+          return { ...item, quantity: item.quantity + seats.filter(seat => seat.status === "selected").length };
+        }
+
+        return item;
+      }));
+    } else {
+      setCart(oldValue => [...oldValue, {
+        name: currentMovie?.nome || "",
+        price: 20,
+        quantity: seats.filter(seat => seat.status === "selected").length,
+        type: "movie"
+      }]);
+    }
+
+    setSelectedSession(null);
+    setSelectedDay("10/06");
+    resetSelectedSeats();
   }
 
   return (
@@ -105,13 +137,9 @@ function MovieSchedule() {
       <Header />
 
       <div>
-        <button onClick={() => setIsMovieFormOpen(true)} className={styles.editButton}>
-          Editar
-        </button>
-
         <div className={styles.content}>
           <div className={styles.fieldMovieInfo}>
-            <img src="/movieTestImage.png" alt="" />
+            <img src={currentMovie?.srcCapa} alt="" />
 
             <div>
               <h1>{currentMovie?.nome}</h1>

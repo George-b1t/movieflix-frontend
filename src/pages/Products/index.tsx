@@ -1,15 +1,20 @@
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AppContext, Cart, ProductProps } from "../../context/AppContext";
 import { toast } from "react-toastify";
-import { SelectProductForm } from "../../components/SelectProductForm";
+import { SelectProductForm } from "../../components/SelectMovieForm copy";
 
 function Products() {
   const { user, setCart, isSelectProductFormOpen, setIsSelectProductFormOpen, products } = useContext(AppContext);
 
   function addProduct(nProduct: ProductProps) {
+    if (user?.role === "manager" || user?.role === "func") {
+      toast.error("Funcionários não podem adicionar produtos ao carrinho");
+      return;
+    }
+
     setCart(
       oldValue => {
         const productAlreadyInCart = oldValue.find(
@@ -24,7 +29,7 @@ function Products() {
           )
         }
 
-        return [...oldValue, { name: nProduct.nome, price: nProduct.preco, quantity: 1 }]
+        return [...oldValue, { name: nProduct.nome, price: nProduct.preco, quantity: 1, type: "snack" }]
       }
     )
 
@@ -58,7 +63,7 @@ function Products() {
       }
 
       {
-        (user?.role === "manager" || user?.role === "employee") && (
+        (user?.role === "manager" || user?.role === "func") && (
           <div className={styles.comboPopUp}>
             <div className={styles.fieldImageAdd}>
               <img onClick={() => setIsSelectProductFormOpen(true)} className={styles.addImage} src="/add.png" alt="add" />

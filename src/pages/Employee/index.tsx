@@ -2,23 +2,20 @@ import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { EmployeeForm } from "../../components/EmployeeForm";
-import { AppContext, Emploee } from "../../context/AppContext";
-import { useContext, useEffect, useState } from "react";
-import { api } from "../../services/api";
+import { AppContext } from "../../context/AppContext";
+import { useContext, useEffect } from "react";
 
 function Employee(){
-    const { setIsEmployeeFormOpen, isEmployeeFormOpen, currentFilial } = useContext(AppContext);
-
-    const [ funcionarios, setFuncionarios ] = useState<Emploee[]>([]);
+    const { user, setIsEmployeeFormOpen, isEmployeeFormOpen, currentFilial, getEmployeesByFilial, employees } = useContext(AppContext);
 
     useEffect(() => {
-        if (!currentFilial) return;
+        if (!user || user.role !== "manager") {
+            window.location.href = "/#/";
+            return;
+        }
 
-        api.get(`/funcionario/${currentFilial.id}`)
-            .then(response => {
-                setFuncionarios(response.data.content);
-            })
-    }, [])
+        getEmployeesByFilial();
+    }, [currentFilial])
 
     return (
             <div className={styles.container} >
@@ -51,7 +48,7 @@ function Employee(){
 
                         </div>
                         
-                        {funcionarios.map((item, index) => {
+                        {employees.map((item, index) => {
                             return (
                                 <div className={styles.employeeBody}> 
                                     

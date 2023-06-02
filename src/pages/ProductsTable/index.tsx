@@ -6,9 +6,14 @@ import { AppContext, ProductProps } from "../../context/AppContext";
 import { SnackForm } from "../../components/SnackForm";
 
 function ProductsTable(){
-    const { setIsSnackFormOpen, isSnackFormOpen, setCurrentProduct, getProducts, allProducts } = useContext(AppContext);
+    const { user, setIsSnackFormOpen, isSnackFormOpen, setCurrentProduct, getProducts, allProducts } = useContext(AppContext);
 
     useEffect(() => {
+        if (!user || (user.role !== "manager" && user.role !== "func")) {
+            window.location.href = "/#/";
+            return;
+        }
+        
         getProducts();
     }, [])
 

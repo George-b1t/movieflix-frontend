@@ -1,8 +1,17 @@
+import { useContext, useEffect } from "react"
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
+import { AppContext } from "../../context/AppContext";
 
 function Profile(){
+    const { setUser, user } = useContext(AppContext);
+
+    useEffect(() => {
+        if (!user || user.role !== "user") {
+            window.location.href = "/#/";
+        }
+    }, [])
 
     const listaDePedidos = [
         {
@@ -65,27 +74,7 @@ function Profile(){
             data: "12/12/12",
             valor: "R$ 200,00"
         },
-        {
-            id: 5,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-        {
-            id: 5,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-        {
-            id: 5,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-
-    
-        ]
+    ]
 
     return (
             <div className={styles.container}>
@@ -94,11 +83,10 @@ function Profile(){
                 <div className={styles.profileTitle}> 
                     
                     
-                    <h1 className={styles.profileName}>Guga</h1>
+                    <h1 className={styles.profileName}>{user?.nome}</h1>
 
 
-                    <button className={styles.buttonSair}> Sair</button>
-
+                    <a href="/#/" className={styles.buttonSair} onClick={() => setUser(null)}>Logout</a>
                 
                 </div>
 

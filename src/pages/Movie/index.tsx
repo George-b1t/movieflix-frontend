@@ -2,7 +2,6 @@ import { useContext } from "react";
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { MovieForm } from "../../components/MovieForm";
 import { AppContext } from "../../context/AppContext";
 import { SelectMovieForm } from "../../components/SelectMovieForm";
 
@@ -16,10 +15,11 @@ export interface MovieProps {
   sinopse: string;
   srcCapa: string;
   dublado: boolean;
+  catalogoId?: string;
 }
 
 function Movie() {
-  const { user, isSelectMovieFormOpen, setIsSelectMovieFormOpen, setCurrentMovie, movies } = useContext(AppContext);
+  const { user, isSelectMovieFormOpen, setIsSelectMovieFormOpen, setCurrentMovie, movies, removeCatalogo } = useContext(AppContext);
 
   return (
     <div className={styles.container}>
@@ -30,21 +30,33 @@ function Movie() {
       <div className={styles.propaganda}>
 
         {movies.map((movie, index) => (
-          <a key={index} href="#/movieschedule" onClick={() => setCurrentMovie(movie)} className={styles.propagandaBox}>
-            <img
-              src={movie.srcCapa}
-              className={styles.movieImage} alt="" />
-            <p>Ver filme</p>
-          </a>
+          <div className={styles.fieldImage}>
+            {
+              (user?.role === "manager" || user?.role === "func") && (
+                <div className={styles.fieldImage}>
+                  <button onClick={() => removeCatalogo(movie?.catalogoId || null)}>Remover</button>
+                </div>
+              )
+            }
+
+            <a key={index} href="#/movieschedule" onClick={() => setCurrentMovie(movie)} className={styles.propagandaBox}>
+              <img
+                src={movie.srcCapa}
+                className={styles.movieImage} alt="" />
+              <p>Ver filme</p>
+            </a>
+          </div>
         ))}
 
         {
-          (user?.role === "manager" || user?.role === "employee") && (
-            <a onClick={() => setIsSelectMovieFormOpen(true)} className={styles.propagandaBox}>
-              <div className={styles.fieldImageAdd}>
-                <img className={styles.addImage} src="/add.png" alt="add" />
-              </div>
-            </a>
+          (user?.role === "manager" || user?.role === "func") && (
+            <div className={styles.fieldImage}>
+              <a onClick={() => setIsSelectMovieFormOpen(true)} className={styles.propagandaBox}>
+                <div className={styles.fieldImageAdd}>
+                  <img className={styles.addImage} src="/add.png" alt="add" />
+                </div>
+              </a>
+            </div>
           )
         }
 
