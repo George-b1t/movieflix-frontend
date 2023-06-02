@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import { AppContext } from "../../context/AppContext";
 
 function SnackForm() {
-  const { setIsSnackFormOpen, saveProduct, currentProduct, updateProduct } = useContext(AppContext);
+  const { setIsSnackFormOpen, saveProduct, currentProduct, updateProduct, removeProduto } = useContext(AppContext);
 
   const isEditing = !!currentProduct;
 
@@ -56,9 +56,10 @@ function SnackForm() {
           <textarea name="descricao" value={descricao} onChange={e => setDescricao(e.target.value)} placeholder="Descrição" />
 
           <div>
-            <input className={styles.closeButton} type="button" value="Fechar" onClick={() => setIsSnackFormOpen(false)} />
+            <input className={styles.removeButton} type="button" value="Remover" onClick={() => {removeProduto(currentProduct?.id || null)}} />
             <input type="button" value="Enviar" onClick={() => handleClick()} />
           </div>
+          <input className={styles.closeButton} type="button" value="Fechar" onClick={() => setIsSnackFormOpen(false)} />
         </div>
       </div>
 

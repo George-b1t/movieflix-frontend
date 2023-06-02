@@ -30,7 +30,10 @@ function ProductsTable(){
                 <div className={styles.content}>
                     <div className={styles.pageHeader}>
                         <h1 className={styles.title}> Produtos </h1> 
-                        <button  onClick={() => setIsSnackFormOpen(true)} className={styles.buttonCadastrar}>Cadastrar</button>
+                        <button  onClick={() => {
+                            setCurrentProduct(null);
+                            setIsSnackFormOpen(true);
+                        }} className={styles.buttonCadastrar}>Cadastrar</button>
                     </div>
 
                     <div className={styles.productsTableTable}>

@@ -4,10 +4,10 @@ import { Footer } from "../../components/Footer";
 import { useContext } from "react";
 import { AppContext, Cart, ProductProps } from "../../context/AppContext";
 import { toast } from "react-toastify";
-import { SelectProductForm } from "../../components/SelectMovieForm copy";
+import { SelectProductForm } from "../../components/SelectProductForm";
 
 function Products() {
-  const { user, setCart, isSelectProductFormOpen, setIsSelectProductFormOpen, products } = useContext(AppContext);
+  const { user, setCart, isSelectProductFormOpen, setIsSelectProductFormOpen, products, removeEstoque } = useContext(AppContext);
 
   function addProduct(nProduct: ProductProps) {
     if (user?.role === "manager" || user?.role === "func") {
@@ -46,8 +46,16 @@ function Products() {
       {
         products.map((product, index) => (
           <div key={index} className={styles.comboPopUp}>
+            {
+              (user?.role === "manager" || user?.role === "func") && (
+                <div className={styles.fieldImage}>
+                  <button onClick={() => {removeEstoque(product.estoqueId || null)}}>Remover</button>
+                </div>
+              )
+            }
+
             <div className={styles.insidePopUp}>
-              <div className={styles.insideHalfLeftPopUp}><img src={product.srcSnack} alt="" /></div>
+              <div className={styles.insideHalfLeftPopUp}><img style={{ maxHeight: 215 }} src={product.srcSnack} alt="" /></div>
               <div className={styles.insideHalfRightPopUp}>
                 <h1 style={{color:"white"}}>{product.nome}</h1>
                 <ul className={styles.ListaCombo}>

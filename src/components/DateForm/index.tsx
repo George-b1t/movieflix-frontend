@@ -1,21 +1,27 @@
 import { useState, useContext } from "react";
 import styles from "./styles.module.scss";
 import { AppContext } from "../../context/AppContext";
+import { api } from "../../services/api";
 
-function DataForm() {
-  const {setIsDateFormOpen } = useContext(AppContext);
+function DateForm({ callback }: any) {
+  const {setIsDateFormOpen, currentMovie, currentFilial, currentRoom } = useContext(AppContext);
 
   const [ dataSession, setDataSession ] = useState("");
   const [ hourSession, setHourSession ] = useState("");
 
   function addMovieHandle() {
     const newSession = {
-      
+      horariosSessao: [`${dataSession} ${hourSession}:00`],
+      filmeId: currentMovie?.id,
+      filialId: currentFilial?.id,
+      salaId: currentRoom?.id,
     };
-    
-    // saveMovie(newMovie);
-  }
 
+    api.post("/sessao", newSession).then(() => {
+      callback();
+      setIsDateFormOpen(false);
+    })
+  }
 
   return (
     <div className={styles.container}>
@@ -37,4 +43,4 @@ function DataForm() {
   )
 }
 
-export { DataForm }
+export { DateForm }

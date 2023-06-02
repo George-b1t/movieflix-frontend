@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import { AppContext } from "../../context/AppContext";
 
 function MovieForm() {
-  const { setIsMovieFormOpen, currentMovie, updateMovie, saveMovie } = useContext(AppContext);
+  const { setIsMovieFormOpen, currentMovie, updateMovie, saveMovie, removeFilme } = useContext(AppContext);
 
   const isEditing = !!currentMovie;
 
@@ -33,7 +33,7 @@ function MovieForm() {
       diretor,
       faixaEtaria,
       sinopse,
-      srcCapa: "https://www.themoviedb.org/t/p/w220_and_h330_face/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg",
+      srcCapa,
       dublado
     };
     
@@ -49,7 +49,7 @@ function MovieForm() {
       diretor,
       faixaEtaria,
       sinopse,
-      srcCapa: "https://www.themoviedb.org/t/p/w220_and_h330_face/6MKr3KgOLmzOP6MSuZERO41Lpkt.jpg",
+      srcCapa,
       dublado,
     };
 
@@ -73,10 +73,11 @@ function MovieForm() {
             <input type="checkbox" name="dublado" checked={dublado} onChange={e => setDublado(e.target.checked)}/>
             <p>Dublado</p>
           </div>
-                    <div>
-            <input className={styles.closeButton} type="button" value="Fechar" onClick={() => setIsMovieFormOpen(false)} />
+          <div>
+            <input className={styles.removeButton} type="button" value="Remover" onClick={() => {removeFilme(currentMovie?.id || null)}} />
             <input type="button" value="Enviar" onClick={() => handleClick()} />
           </div>
+          <input className={styles.closeButton} type="button" value="Fechar" onClick={() => setIsMovieFormOpen(false)} />
         </div>
       </div>
 

@@ -5,6 +5,9 @@ import styles from "./styles.module.scss"
 import { AppContext } from "../../context/AppContext";
 import { toast } from "react-toastify";
 import { MovieForm } from "../../components/MovieForm";
+import { api } from "../../services/api";
+import { DateForm } from "../../components/DateForm";
+import { MovieProps } from "../Movie";
 
 interface Seat {
   id: number;
@@ -16,23 +19,40 @@ interface Session {
   time: string;
 }
 
+interface SessionProps {
+  sala: Room;
+  filme: MovieProps;
+  horarioSessao: string;
+}
+
+export interface Room {
+  id: string;
+  nome: string;
+  capacidade: number;
+}
+
 function MovieSchedule() {
-  const { user, cart, setCart, isMovieFormOpen, currentMovie } = useContext(AppContext);
+  const { user, cart, setCart, isMovieFormOpen, currentMovie, currentFilial, setIsDateFormOpen, isDateFormOpen, setCurrentRoom } = useContext(AppContext);
 
   const [ seats, setSeats ] = useState<Seat[]>([]);
   const [ days, setDays ] = useState<string[]>([]);
   const [ selectedDay, setSelectedDay ] = useState<string>("");
 
+  const [ sessions, setSessions ] = useState<SessionProps[]>([]);
+
+  const [ rooms, setRooms ] = useState<Room[]>([]);
+
   const [ selectedSession, setSelectedSession ] = useState<Session | null>(null);
 
   useEffect(() => {
-    setDays([]);
-
-    for (let i = 0; i < 4; i++) {
-      setDays(oldValue => [...oldValue, `1${i}/06`]);
+    if (!currentMovie) {
+      window.location.href = "/#/movies";
+      return;
     }
 
-    setSelectedDay("10/06");
+    getSessions();
+
+    getRooms();
   }, []);
 
   useEffect(() => {
@@ -130,9 +150,64 @@ function MovieSchedule() {
     resetSelectedSeats();
   }
 
+  function getRooms() {
+    api.get(`/sala/filial/${currentFilial?.id}`)
+    .then(response => {
+      setRooms(response.data);
+    })
+  }
+
+  function addRoom() {
+    api.post("/sala", {
+      nome: `Sala ${rooms.length + 1}`,
+      filialId: currentFilial?.id,
+      capacidade: 45
+    })
+    .then(() => {
+      toast.success("Sala adicionada com sucesso!");
+      getRooms();
+    })
+  }
+
+  function getTime(value: string) {
+    return value.split("T")[1].split(":00")[0];
+  }
+
+  function getDay(value: string) {
+    const dateWithoutFiveFirstCharacters = value.slice(5);
+    const date = dateWithoutFiveFirstCharacters.split("T")[0].split("-").reverse().join("/");
+
+    return date;
+  }
+
+  function getSessions() {
+    api.get(`/sessao/${currentMovie?.id}`)
+      .then(response => {
+        setSessions(response.data);
+
+        const findedDays: any = [];
+
+        response.data.forEach((session: SessionProps) => {
+          const dateWithoutFiveFirstCharacters = session.horarioSessao.slice(5);
+          const date = dateWithoutFiveFirstCharacters.split("T")[0].split("-").reverse().join("/");
+
+          const alreadyInArray = findedDays.find((day: string) => day === date);
+
+          if (alreadyInArray) return;
+
+          findedDays.push(date);
+        });
+
+        setSelectedDay(findedDays[0]);
+
+        setDays(findedDays);
+      })
+  }
+
   return (
     <div className={styles.container}>
       {isMovieFormOpen && <MovieForm />}
+      {isDateFormOpen && <DateForm callback={getSessions} />}
 
       <Header />
 
@@ -144,7 +219,11 @@ function MovieSchedule() {
             <div>
               <h1>{currentMovie?.nome}</h1>
               <p>{currentMovie?.sinopse}</p>
-              <span>{currentMovie?.faixaEtaria}</span>
+              <p>Diretor: <span>{currentMovie?.diretor}</span></p>
+              <p>Dublado: <span>{currentMovie?.dublado ? "Sim" : "Não"}</span></p>
+              <p>Nota: <span>{currentMovie?.nota}</span></p>
+              <p>Lançamento: <span>{currentMovie?.dataLancamento.split("-").reverse().join("/")}</span></p>
+              <span className={styles.faixaEtaria}>{currentMovie?.faixaEtaria}</span>
             </div>
           </div>
 
@@ -159,7 +238,9 @@ function MovieSchedule() {
                       <button
                         key={index}
                         className={`${styles.day} ${selectedDay === day ? styles.daySelected : ""}`}
-                        onClick={() => setSelectedDay(day)}
+                        onClick={() => {
+                          setSelectedDay(day);
+                        }}
                       >
                         {day}
                       </button>
@@ -175,25 +256,38 @@ function MovieSchedule() {
               !selectedSession && (
                 <div className={styles.fieldRooms}>
                   {
-                    [
-                      "Sala 1",
-                      "Sala 2",
-                      "Sala 3"
-                    ]
-                    .map((room, index) => (
+                    rooms.map((room, index) => (
                       <div className={styles.roomSchedule} key={index}>
-                        <p>{room}</p>
+                        <p>{room.nome}</p>
                         <div className={styles.roomSeparator} />
 
                         {
-                          ["10:00", "11:00", "12:00", "13:00"].map((time, index) => (
-                            <button key={index} className={`${styles.hour} ${isSessionSelected({ room, time }) ? styles.hourSelected : ""}`} onClick={() => selectSession({room, time})}>
-                              {time}
+                          sessions.filter(item => item.sala.nome == room.nome).filter(item => getDay(item.horarioSessao) == selectedDay).map((time, index) => (
+                            <button key={index} className={`${styles.hour} ${isSessionSelected({ room: room.nome, time: getTime(time.horarioSessao) }) ? styles.hourSelected : ""}`} onClick={() => selectSession({room: room.nome, time: getTime(time.horarioSessao)})}>
+                              {getTime(time.horarioSessao)}
                             </button>
                           ))
                         }
+                        {
+                          (user?.role === "manager" || user?.role === "func") && (
+                            <button onClick={() => {
+                              setCurrentRoom(room);
+                              setIsDateFormOpen(true)
+                            }} className={styles.hour}>
+                              +
+                            </button>
+                          )
+                        }
                       </div>
                     ))
+                  }
+
+                  {
+                    (user?.role === "manager" || user?.role === "func") && (
+                      <button onClick={() => addRoom()} className={styles.addRoom}>
+                        Adicionar Sala
+                      </button>
+                    )
                   }
                 </div>
               )

@@ -34,6 +34,39 @@
 
     height: 600px;
     overflow-y: scroll;
+
+    position: relative;
+
+    .fieldImage {
+      width: 100%;
+
+      display: flex;
+      justify-content: flex-end;
+  
+      position: absolute;
+      
+      button {
+        z-index: 1;
+
+        margin: 4px 4px 0 0;
+  
+        width: 80px;
+        height: 40px;
+        border-radius: 8px;
+  
+        background-color: #EA9138;
+  
+        font-weight: 600;
+        font-size: 14px;
+        color: white;
+  
+        transition: .1s ease;
+        
+        &:hover, &:focus {
+          filter: brightness(0.8);
+        }
+      }
+    }
   }
 
   .comboPopUp{

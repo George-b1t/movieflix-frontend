@@ -62,8 +62,12 @@
           filter: brightness(0.8);
         }
 
+        &.removeButton {
+          background: #c22626;
+        }
+
         &.closeButton {
-          background: #B9ADA0;
+          background: #b9ada0;
         }
       }
     }

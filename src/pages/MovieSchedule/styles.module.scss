@@ -41,6 +41,20 @@
 
     padding: 0 150px;
 
+    .addRoom {
+      height: 40px;
+      background: #FD9B3A;
+      border-radius: 6px;
+
+      color: #fff;
+
+      transition: .3s ease;
+
+      &:hover, &:focus {
+        filter: brightness(0.8);
+      }
+    }
+
     .fieldMovieInfo {
       display: flex;
       align-items: center;
@@ -64,7 +78,7 @@
           color: white;
         }
 
-        span {
+        .faixaEtaria {
           border-radius: 5px;
           width: 60px;
           height: 60px;

@@ -34,7 +34,10 @@ function MovieTable(){
 
                         <h1 className={styles.title}> Filmes </h1> 
 
-                        <button onClick={() => setIsMovieFormOpen(true)} className={styles.buttonCadastrar}>Cadastrar</button>
+                        <button onClick={() => {
+                            setCurrentMovie(null);
+                            setIsMovieFormOpen(true);
+                        }} className={styles.buttonCadastrar}>Cadastrar</button>
 
 
                     </div>

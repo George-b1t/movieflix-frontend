@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { MovieProps } from "../pages/Movie";
 import { api } from "../services/api";
+import { Room } from "../pages/MovieSchedule";
 
 export interface Cart {
   name: string;
@@ -99,8 +100,15 @@ interface AppContextData {
 
   addEstoque(productId: string): void;
   removeCatalogo(id: string | null): void;
+  removeEstoque(id: string | null): void;
+
+  removeFilme(id: string | null): void;
+  removeProduto(id: string | null): void;
 
   getEmployeesByFilial(): void;
+
+  currentRoom: Room | null;
+  setCurrentRoom: React.Dispatch<React.SetStateAction<Room | null>>;
 }
 
 const AppContext = createContext({} as AppContextData);
@@ -133,11 +141,21 @@ function AppContextProvider({ children }: AppContextProviderProps) {
   const [ isSelectProductFormOpen, setIsSelectProductFormOpen ] = useState(false);
   const [ isDateFormOpen, setIsDateFormOpen ] = useState(false);
 
+  const [ currentRoom, setCurrentRoom ] = useState<Room | null>(null);
+
   useEffect(() => {
     getMovies();
     getProductsByFilial();
     getMoviesByFilial();
-  }, [currentFilial]);
+
+    api.post("/login", {
+      email: "pabllo@gmail.com",
+      senha: "pabllo123"
+    }).then(response => {
+      setUser(response.data);
+      setCurrentFilial(response.data.filial);
+    })
+  }, []);
 
   useEffect(() => {
     if (filiais.length > 0) return;
@@ -145,7 +163,7 @@ function AppContextProvider({ children }: AppContextProviderProps) {
     api.get("/filial")
       .then(response => {
         setFiliais(response.data.content)
-        setCurrentFilial(response.data.content[0])
+        setCurrentFilial(oldV => !oldV ? response.data.content[0] : oldV)
       });
   }, [])
 
@@ -159,6 +177,28 @@ function AppContextProvider({ children }: AppContextProviderProps) {
           dataLancamento: item.filmeId.dataLancamento.split("T")[0],
           catalogoId: item.id
         })));
+      })
+  }
+
+  function removeFilme(id: string | null) {
+    if (id === null) return;
+
+    api.delete(`/filme/${id}`)
+      .then(() => {
+        getMovies();
+        setIsMovieFormOpen(false);
+        setCurrentMovie(null);
+      })
+  }
+
+  function removeProduto(id: string | null) {
+    if (id === null) return;
+
+    api.delete(`/produto/${id}`)
+      .then(() => {
+        getProducts();
+        setIsSnackFormOpen(false);
+        setCurrentProduct(null);
       })
   }
 
@@ -210,6 +250,15 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       })
   }
 
+  function removeEstoque(id: string | null) {
+    if (id === null) return;
+
+    api.delete(`/estoque/${id}`)
+      .then(() => {
+        getProductsByFilial();
+      })
+  }
+
   function addCatalogo(movieId: string) {
     if (movieId === null || currentFilial === null) return;
 
@@ -242,7 +291,11 @@ function AppContextProvider({ children }: AppContextProviderProps) {
   function saveMovie(movie: MovieProps) {
     if (movie === null) return;
 
-    api.post("/filme", movie)
+    api.post("/filme", {
+      ...movie,
+      id: undefined,
+      faixaEtaria: Number(movie.faixaEtaria)
+    })
       .then(() => {
         getMovies();
         setIsMovieFormOpen(false);
@@ -255,6 +308,7 @@ function AppContextProvider({ children }: AppContextProviderProps) {
 
     api.put(`/filme/${movie.id}`, {
       ...movie,
+      faixaEtaria: Number(movie.faixaEtaria),
       id: undefined
     })
       .then(() => {
@@ -283,7 +337,7 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       id: undefined
     })
       .then(() => {
-        getProductsByFilial();
+        getProducts();
         setIsSnackFormOpen(false);
         setCurrentProduct(null);
       })
@@ -338,7 +392,12 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       removeCatalogo,
       getEmployeesByFilial,
       isDateFormOpen,
-      setIsDateFormOpen
+      setIsDateFormOpen,
+      removeEstoque,
+      removeFilme,
+      removeProduto,
+      currentRoom,
+      setCurrentRoom
     }}>
       {children}
     </AppContext.Provider>
