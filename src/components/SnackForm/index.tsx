@@ -1,10 +1,6 @@
 import { useState, useContext } from "react";
 import styles from "./styles.module.scss";
-import { AppContext, ProductProps } from "../../context/AppContext";
-
-interface SnackFormProps {
-  snack: ProductProps | null;
-}
+import { AppContext } from "../../context/AppContext";
 
 function SnackForm() {
   const { setIsSnackFormOpen, saveProduct, currentProduct, updateProduct } = useContext(AppContext);

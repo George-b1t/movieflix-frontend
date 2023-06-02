@@ -6,13 +6,11 @@ function EmployeeForm() {
   const { setIsEmployeeFormOpen, currentEmployee } = useContext(AppContext);
 
   const [ nome, setNome ] = useState(currentEmployee?.nome || "");
-  const [ cargo, setCargo ] = useState(currentEmployee?.cargo || "");
+  const [ cargo, setCargo ] = useState(currentEmployee?.gerente || "");
 	const [ email, setEmail ] = useState(currentEmployee?.email || "");
 	const [ salario, setSalario ] = useState(currentEmployee?.salario || "");
 	const [ senha, setSenha ] = useState(currentEmployee?.senha || "");
 
-  
- 
   return (
     <div className={styles.container}>
       <div className={styles.content}>

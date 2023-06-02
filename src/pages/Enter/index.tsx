@@ -17,8 +17,10 @@ function Enter() {
     setUser({
       name: "Teste",
       email,
-      role: "manager"
+      role: "employee"
     })
+
+    window.location.href = "/#/profileEmployee";
   }
 
   return (

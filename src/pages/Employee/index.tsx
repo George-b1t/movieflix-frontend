@@ -2,113 +2,23 @@ import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { EmployeeForm } from "../../components/EmployeeForm";
-import { AppContext } from "../../context/AppContext";
-import { useContext } from "react";
+import { AppContext, Emploee } from "../../context/AppContext";
+import { useContext, useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 function Employee(){
+    const { setIsEmployeeFormOpen, isEmployeeFormOpen, currentFilial } = useContext(AppContext);
 
-    const { setIsEmployeeFormOpen, isEmployeeFormOpen } = useContext(AppContext);
-    const listafuncionarios = [
-        {
-            id: 1,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 2,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 3,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 4,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 5,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 5,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 5,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 5,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 5,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 5,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 5,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 5,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 5,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-        {
-            id: 5,
-            nome: "João",
-            cargo: "Gerente",
-            email: "sfsf",
-            senha: "123"
-        },
-    ]
+    const [ funcionarios, setFuncionarios ] = useState<Emploee[]>([]);
 
+    useEffect(() => {
+        if (!currentFilial) return;
+
+        api.get(`/funcionario/${currentFilial.id}`)
+            .then(response => {
+                setFuncionarios(response.data.content);
+            })
+    }, [])
 
     return (
             <div className={styles.container} >
@@ -141,13 +51,13 @@ function Employee(){
 
                         </div>
                         
-                        {listafuncionarios.map((item, index) => {
+                        {funcionarios.map((item, index) => {
                             return (
                                 <div className={styles.employeeBody}> 
                                     
                                     <p>{item.id}</p>
                                     <p>{item.nome}</p>
-                                    <p>{item.cargo}</p>
+                                    <p>{item.gerente}</p>
                                     <p>{item.email}</p>
                                     <p>{item.senha}</p>
                                     <button>Editar</button>

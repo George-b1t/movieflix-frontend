@@ -1,110 +1,26 @@
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../context/AppContext";
+import { useContext, useEffect } from "react";
+import { AppContext, ProductProps } from "../../context/AppContext";
 import { SnackForm } from "../../components/SnackForm";
 
-
-
 function ProductsTable(){
-    const {user} = useContext(AppContext);
+    const { setIsSnackFormOpen, isSnackFormOpen, setCurrentProduct, getProducts, allProducts } = useContext(AppContext);
 
-    const { setIsSnackFormOpen, isSnackFormOpen } = useContext(AppContext);
+    useEffect(() => {
+        getProducts();
+    }, [])
 
-
-    const listafuncionarios = [
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-        {
-            nome: "João",
-            valor: "10,00",
-            descricao: "João",
-            produto: "João"
-        },
-    ]
+    function editProduct(product: ProductProps) {
+        setCurrentProduct(product);
+        setIsSnackFormOpen(true);
+    }
 
     return (
             <div className={styles.container}>
                 <Header />
                 {isSnackFormOpen && <SnackForm />}
-
 
                 <div className={styles.content}>
                     <div className={styles.pageHeader}>
@@ -118,17 +34,17 @@ function ProductsTable(){
                             <p>Valor</p>
                             <p>Descrição</p>
                             <p>Produto</p>
-                            {user?.role != "manager" && <div><p className="text-edit">Editar</p></div>}
+                            <p className="text-edit">Editar</p>
                         </div>
                         
-                        {listafuncionarios.map((item, index) => {
+                        {allProducts.map((item, index) => {
                             return (
                                 <div key={index} className={styles.productsTableBody} > 
                                     <p>{item.nome}</p>
-                                    <p>{item.valor}</p>
+                                    <p>{item.preco}</p>
                                     <p>{item.descricao}</p>
-                                    <p>{item.produto}</p>
-                                    {user?.role != "manager" && <button className="btn-edit">Editar</button>}
+                                    <p>{item.srcSnack}</p>
+                                    <button onClick={() => editProduct(item)} className="btn-edit">Editar</button>
                                 </div>
                             )
                         }

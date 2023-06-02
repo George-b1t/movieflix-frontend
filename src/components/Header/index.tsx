@@ -11,6 +11,8 @@ function Header() {
     user
   } = useContext(AppContext);
 
+  const hrefToUser = user ? user.role === "user" ? "/#/profile" : "/#/profileemployee" : "/#/enter";
+
   return (
     <div className={styles.container}>
       <a href="#/"><h1>MOVIEFLIX</h1></a>
@@ -30,7 +32,7 @@ function Header() {
         <a href="/#/cart">Carrinho</a>
       </nav>
 
-      <a className={styles.login} href="/#/enter">{user ? user.name : "Entrar"}</a>
+      <a className={styles.login} href={hrefToUser}>{user ? user.name : "Entrar"}</a>
     </div>
   )
 }

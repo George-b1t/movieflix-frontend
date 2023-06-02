@@ -68,14 +68,17 @@
         
         p,button{
             &:not(:has(:nth-child(5))) {
-                display: flex;
                 color: white;
                 background: #373737;
-                height: 100px;
                 width: 298px;
-                align-items: center;
-                justify-content: center;
                 border-radius: 2px;
+
+                display: block;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                text-align: center;
+                padding: 20px 0;
             }
 
             &:has(:nth-child(5)) {

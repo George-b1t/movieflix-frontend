@@ -2,51 +2,21 @@ import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { AppContext } from "../../context/AppContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MovieForm } from "../../components/MovieForm";
+import { MovieProps } from "../Movie";
 
 function MovieTable(){
+    const { setIsMovieFormOpen, isMovieFormOpen, getMovies, allMovies, setCurrentMovie } = useContext(AppContext);
 
-    const { setIsMovieFormOpen, isMovieFormOpen } = useContext(AppContext);
-    const listaMovies = [
-        {
-            id: 1,
-            nome: "Vingadores",
-            nota: "10",
-            dataLancamento: "12/12/12",
-            diretor: "João",
-            faixaEtaria: "12",
-            sinopse: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
-            srcCapa: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.adorocinema.com%2Ffilmes%2Ffilme-130848%2F&psig=AOvVaw0Q4Z4X6Z3Z2Q4Q4Z4X6Z3Z2Q4Q4Z4X6Z3Z2Q4Q&ust=1629789858218000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z3Q5vICFQAAAAAdAAAAABAD",
-            dublado: true
-        
-       },
-         {
-            id: 2,
-            nome: "Vingadores",
-            nota: "10",
-            dataLancamento: "12/12/12",
-            diretor: "João",
-            faixaEtaria: "12",
-            sinopse: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
-            srcCapa: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.adorocinema.com%2Ffilmes%2Ffilme-130848%2F&psig=AOvVaw0Q4Z4X6Z3Z2Q4Q4Z4X6Z3Z2Q4Q4Z4X6Z3Z2Q4Q&ust=1629789858218000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z3Q5vICFQAAAAAdAAAAABAD",
-            dublado: true
+    useEffect(() => {
+        getMovies()
+    }, []);
 
-        },
-        {
-            id: 3,
-            nome: "Vingadores",
-            nota: "10",
-            dataLancamento: "12/12/12",
-            diretor: "João",
-            faixaEtaria: "12",
-            sinopse: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.",
-            srcCapa: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.adorocinema.com%2Ffilmes%2Ffilme-130848%2F&psig=AOvVaw0Q4Z4X6Z3Z2Q4Q4Z4X6Z3Z2Q4Q4Z4X6Z3Z2Q4Q&ust=1629789858218000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z3Q5vICFQAAAAAdAAAAABAD",
-            dublado: false
-        }
-            
-    ]
-
+    function editMovie(movie: MovieProps) {
+        setCurrentMovie(movie);
+        setIsMovieFormOpen(true);
+    }
 
     return (
             <div className={styles.container} >
@@ -57,7 +27,7 @@ function MovieTable(){
                     
                     <div className={styles.pageHeader}>
 
-                        <h1 className={styles.title}> Funcionários </h1> 
+                        <h1 className={styles.title}> Filmes </h1> 
 
                         <button onClick={() => setIsMovieFormOpen(true)} className={styles.buttonCadastrar}>Cadastrar</button>
 
@@ -83,9 +53,9 @@ function MovieTable(){
 
                         </div>
                         
-                        {listaMovies.map((item, index) => {
+                        {allMovies.map((item, index) => {
                             return (
-                                <div className={styles.employeeBody}> 
+                                <div key={index} className={styles.employeeBody}> 
                                     
                                     <p>{item.nome}</p>
                                     <p>{item.nota}</p>
@@ -98,8 +68,7 @@ function MovieTable(){
 
                                     {item.dublado ? <p>Sim</p> : <p>Não</p>}
                                     
-                                    <button>Editar</button>
-                            
+                                    <button onClick={() => editMovie(item)}>Editar</button>
                                 
                                 </div>
                             )

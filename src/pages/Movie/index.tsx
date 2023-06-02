@@ -4,6 +4,7 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { MovieForm } from "../../components/MovieForm";
 import { AppContext } from "../../context/AppContext";
+import { SelectMovieForm } from "../../components/SelectMovieForm";
 
 export interface MovieProps {
   id: string;
@@ -18,11 +19,11 @@ export interface MovieProps {
 }
 
 function Movie() {
-  const { user, isMovieFormOpen, setIsMovieFormOpen, setCurrentMovie, movies } = useContext(AppContext);
+  const { user, isSelectMovieFormOpen, setIsSelectMovieFormOpen, setCurrentMovie, movies } = useContext(AppContext);
 
   return (
     <div className={styles.container}>
-      {isMovieFormOpen && <MovieForm />}
+      {isSelectMovieFormOpen && <SelectMovieForm />}
 
       <Header/>
       
@@ -39,7 +40,7 @@ function Movie() {
 
         {
           (user?.role === "manager" || user?.role === "employee") && (
-            <a onClick={() => setIsMovieFormOpen(true)} className={styles.propagandaBox}>
+            <a onClick={() => setIsSelectMovieFormOpen(true)} className={styles.propagandaBox}>
               <div className={styles.fieldImageAdd}>
                 <img className={styles.addImage} src="/add.png" alt="add" />
               </div>

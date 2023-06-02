@@ -29,6 +29,11 @@
     gap: 2rem;
     flex-wrap: wrap;
     justify-content: center;
+
+    width: calc(100% - 10rem);
+
+    height: 600px;
+    overflow-y: scroll;
   }
 
   .comboPopUp{

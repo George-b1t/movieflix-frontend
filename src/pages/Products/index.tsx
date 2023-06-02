@@ -1,13 +1,13 @@
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext, Cart, ProductProps } from "../../context/AppContext";
 import { toast } from "react-toastify";
-import { SnackForm } from "../../components/SnackForm";
+import { SelectProductForm } from "../../components/SelectProductForm";
 
 function Products() {
-  const { user, setCart, isSnackFormOpen, setIsSnackFormOpen, products } = useContext(AppContext);
+  const { user, setCart, isSelectProductFormOpen, setIsSelectProductFormOpen, products } = useContext(AppContext);
 
   function addProduct(nProduct: ProductProps) {
     setCart(
@@ -33,7 +33,7 @@ function Products() {
 
   return (
     <div className={styles.container}>
-      {isSnackFormOpen && <SnackForm />}
+      {isSelectProductFormOpen && <SelectProductForm />}
 
       <Header />
       <h1 className={styles.TitleSnack}>Snack Bar</h1>
@@ -61,7 +61,7 @@ function Products() {
         (user?.role === "manager" || user?.role === "employee") && (
           <div className={styles.comboPopUp}>
             <div className={styles.fieldImageAdd}>
-              <img onClick={() => setIsSnackFormOpen(true)} className={styles.addImage} src="/add.png" alt="add" />
+              <img onClick={() => setIsSelectProductFormOpen(true)} className={styles.addImage} src="/add.png" alt="add" />
             </div>
           </div>
         )

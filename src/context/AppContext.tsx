@@ -21,10 +21,10 @@ export interface ProductProps {
   srcSnack: string;
 }
 
-interface Emploee {
+export interface Emploee {
   id: string;
   nome: string;
-  cargo: string;
+  gerente: string;
   email: string;
   salario: string;
   senha: string;
@@ -68,10 +68,31 @@ interface AppContextData {
   saveProduct(product: ProductProps): void;
   updateProduct(product: ProductProps): void;
 
+  getProducts(): void;
+
+  getMovies(): void;
+
+  getProductsByFilial(): void;
+
+  allMovies: MovieProps[];
+  setAllMovies: React.Dispatch<React.SetStateAction<MovieProps[]>>;
   products: ProductProps[];
   setProducts: React.Dispatch<React.SetStateAction<ProductProps[]>>;
+  allProducts: ProductProps[];
+  setAllProducts: React.Dispatch<React.SetStateAction<ProductProps[]>>;
   currentProduct: ProductProps | null;
   setCurrentProduct: React.Dispatch<React.SetStateAction<ProductProps | null>>;
+
+  isSelectMovieFormOpen: boolean;
+  setIsSelectMovieFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  addCatalogo(movieId: string): void;
+  getMoviesByFilial(): void;
+
+  isSelectProductFormOpen: boolean;
+  setIsSelectProductFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  addEstoque(productId: string): void;
 }
 
 const AppContext = createContext({} as AppContextData);
@@ -96,11 +117,17 @@ function AppContextProvider({ children }: AppContextProviderProps) {
   const [ currentEmployee, setCurrentEmployee ] = useState<Emploee | null>(null);
 
   const [ movies, setMovies ] = useState<MovieProps[]>([]);
+  const [ allMovies, setAllMovies ] = useState<MovieProps[]>([]);
   const [ products, setProducts ] = useState<ProductProps[]>([]);
+  const [ allProducts, setAllProducts ] = useState<ProductProps[]>([]);
+
+  const [ isSelectMovieFormOpen, setIsSelectMovieFormOpen ] = useState(false);
+  const [ isSelectProductFormOpen, setIsSelectProductFormOpen ] = useState(false);
 
   useEffect(() => {
     getMovies();
-    getProducts();
+    getProductsByFilial();
+    getMoviesByFilial();
   }, [currentFilial]);
 
   useEffect(() => {
@@ -114,21 +141,70 @@ function AppContextProvider({ children }: AppContextProviderProps) {
   }, [])
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  function getMovies() {
+  function getMoviesByFilial() {
     if (currentFilial === null) return;
 
     api.get(`/catalogo/${currentFilial?.id}`)
       .then(response => {
-        setMovies(response.data.map((movie: any) => movie.filmeId));
+        setMovies(response.data.map((item: any) => ({
+          ...item.filmeId,
+          dataLancamento: item.filmeId.dataLancamento.split("T")[0]
+        })));
       })
   }
 
-  function getProducts() {
+  function getMovies() {
+    api.get("/filme")
+      .then(response => {
+        setAllMovies(response.data.content.map((item: any) => ({
+          ...item,
+          dataLancamento: item.dataLancamento.split("T")[0]
+        })));
+      })
+  }
+
+  function getProductsByFilial() {
     if (currentFilial === null) return;
 
     api.get(`/estoque/${currentFilial?.id}`)
       .then(response => {
         setProducts(response.data.map((produto: any) => produto.produtoId));
+      })
+  }
+
+  function getProducts() {
+    api.get(`/produto`)
+      .then(response => {
+        setAllProducts(response.data.content);
+      })
+  }
+
+  function addCatalogo(movieId: string) {
+    if (movieId === null || currentFilial === null) return;
+
+    api.post("/catalogo", {
+      filmeId: movieId,
+      filialId: currentFilial.id
+    })
+      .then(() => {
+        getMoviesByFilial();
+        setIsSelectMovieFormOpen(false);
+        setCurrentMovie(null);
+      })
+  }
+
+  function addEstoque(productId: string) {
+    if (productId === null || currentFilial === null) return;
+
+    api.post("/estoque", {
+      produtoId: productId,
+      filialId: currentFilial.id,
+      quantidade: 100
+    })
+      .then(() => {
+        getProductsByFilial();
+        setIsSelectProductFormOpen(false);
+        setCurrentProduct(null);
       })
   }
 
@@ -146,7 +222,10 @@ function AppContextProvider({ children }: AppContextProviderProps) {
   function updateMovie(movie: MovieProps) {
     if (movie === null) return;
 
-    api.put(`/filme/${movie.id}`, movie)
+    api.put(`/filme/${movie.id}`, {
+      ...movie,
+      id: undefined
+    })
       .then(() => {
         getMovies();
         setIsMovieFormOpen(false);
@@ -168,9 +247,12 @@ function AppContextProvider({ children }: AppContextProviderProps) {
   function updateProduct(product: ProductProps) {
     if (product === null) return;
 
-    api.put(`/produto/${product.id}`, product)
+    api.put(`/produto/${product.id}`, {
+      ...product,
+      id: undefined
+    })
       .then(() => {
-        getProducts();
+        getProductsByFilial();
         setIsSnackFormOpen(false);
         setCurrentProduct(null);
       })
@@ -207,7 +289,21 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       currentProduct,
       setCurrentProduct,
       saveProduct,
-      updateProduct
+      updateProduct,
+      getMovies,
+      getProducts,
+      allProducts,
+      setAllProducts,
+      allMovies,
+      setAllMovies,
+      getProductsByFilial,
+      isSelectMovieFormOpen,
+      setIsSelectMovieFormOpen,
+      addCatalogo,
+      getMoviesByFilial,
+      isSelectProductFormOpen,
+      setIsSelectProductFormOpen,
+      addEstoque
     }}>
       {children}
     </AppContext.Provider>
