@@ -1,80 +1,67 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { AppContext } from "../../context/AppContext";
+import { api } from "../../services/api";
+
+interface Pedido {
+    id: string;
+    data: string;
+    value: number;
+}
 
 function Profile(){
     const { setUser, user } = useContext(AppContext);
+
+    const [ compras, setCompras ] = useState([]);
+    const [ reservas, setReservas ] = useState([]);
+
+    const [ pedidos, setPedidos ] = useState<Pedido[]>([]);
+
+    useEffect(() => {
+        api.get("/compra")
+            .then(response => {
+                setCompras(response.data.content)
+
+                api.get("/reserva?size=100000")
+                    .then(response => {
+                        setReservas(response.data.content)
+                    }
+                )
+            }
+        )
+    }, [])
+
+    useEffect(() => {
+        const comprasList: any = [];
+
+        compras.forEach((compra: any) => {
+            if (compra.usuario.cpf === user?.cpf) {
+                let value = 0;
+                
+                compra.produtosCompra.forEach((produto: any) => {
+                    value += produto.preco;
+                })
+
+                comprasList.push({id: compra.id, data: new Date(compra.dataCompra).toLocaleDateString(), value});
+            }
+        })
+
+        for (let i = 0; i < comprasList.length; i++) {
+            const myReservas = reservas.filter((reserva: any) => reserva.compraId.id === comprasList[i].id);
+
+            comprasList[i].value += myReservas.length * 20;
+        }
+
+        setPedidos(comprasList);
+    }, [reservas])
 
     useEffect(() => {
         if (!user || user.role !== "user") {
             window.location.href = "/#/";
         }
     }, [])
-
-    const listaDePedidos = [
-        {
-            id: 1,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-        {
-            id: 2,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-        {
-            id: 3,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-        {
-            id: 4,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-        {
-            id: 5,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-        {
-            id: 5,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-        {
-            id: 5,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-        {
-            id: 5,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-        {
-            id: 5,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-        {
-            id: 5,
-            local: "São Paulo",
-            data: "12/12/12",
-            valor: "R$ 200,00"
-        },
-    ]
 
     return (
             <div className={styles.container}>
@@ -123,14 +110,14 @@ function Profile(){
                         </div>
                         
 
-                         {listaDePedidos.map((item, index) => {
+                         {pedidos.map((item, index) => {
                             return (
                                 <div className={styles.profileBody}> 
                                     
                                     <p>{item.id}</p>
-                                    <p>{item.local}</p>
+                                    <p>Aracaju</p>
                                     <p>{item.data}</p>
-                                    <p>{item.valor}</p>
+                                    <p>{item.value}</p>
                             
                                 
                                 </div>

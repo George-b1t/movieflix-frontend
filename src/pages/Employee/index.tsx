@@ -10,7 +10,7 @@ function Employee(){
     const { user, setIsEmployeeFormOpen, isEmployeeFormOpen, currentFilial, getEmployeesByFilial, employees, setCurrentEmployee } = useContext(AppContext);
 
     useEffect(() => {
-        if (false) {
+        if (!user || user.role !== "manager" || false) {
             window.location.href = "/#/";
             return;
         }

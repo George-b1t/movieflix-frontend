@@ -10,6 +10,7 @@ function Enter() {
 
   const [ isRegister, setIsRegister ] = useState(false);
 
+  const [ name, setName ] = useState("");
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
 
@@ -20,7 +21,21 @@ function Enter() {
   }, []);
 
   function enter() {
-    if (isRegister) return;
+    if (isRegister) {
+      api.post("/usuario", {
+        nome: name,
+        email,
+        senha: password,
+        dataNascimento: "2000-01-01",
+        cpf: Math.random() * 10000000
+      }).then(response => {
+        toast.success("Conta criada com sucesso");
+        setUser(response.data);
+        window.location.href = "/#/profile";
+      })
+
+      return
+    }
 
     api.post("/login", {
       email,
@@ -48,6 +63,7 @@ function Enter() {
       <div className={styles.fieldOptions}>
         <h1>{isRegister ? "Cadastro" : "Login"}</h1>
 
+        {isRegister && <input placeholder="Nome" value={name} onChange={e => setName(e.target.value)} />}
         <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
         <input placeholder="Senha" type="password" value={password} onChange={e => setPassword(e.target.value)} />
         <button onClick={() => enter()}>{isRegister ? "Criar conta" : "Entrar"}</button>

@@ -152,13 +152,13 @@ function AppContextProvider({ children }: AppContextProviderProps) {
     getProductsByFilial();
     getMoviesByFilial();
 
-    api.post("/login", {
-      email: "pabllo@gmail.com",
-      senha: "pabllo123"
-    }).then(response => {
-      setUser(response.data);
-      setCurrentFilial(response.data.filial);
-    })
+    // api.post("/login", {
+    //   email: "pabllo@gmail.com",
+    //   senha: "pabllo123"
+    // }).then(response => {
+    //   setUser(response.data);
+    //   setCurrentFilial(response.data.filial);
+    // })
   }, []);
 
   useEffect(() => {

@@ -67,7 +67,7 @@ function MovieSchedule() {
   }, [selectedSession]);
 
   function getReservas() {
-    api.get("/reserva")
+    api.get("/reserva?size=100000")
       .then(response => {
         setReservas(response.data.content);
       })
