@@ -30,9 +30,9 @@ export interface ProductProps {
 export interface Emploee {
   id: string;
   nome: string;
-  gerente: string;
+  gerente: boolean;
   email: string;
-  salario: string;
+  salario: number;
   senha: string;
 }
 
@@ -113,6 +113,9 @@ interface AppContextData {
 
   currentRoom: Room | null;
   setCurrentRoom: React.Dispatch<React.SetStateAction<Room | null>>;
+
+  saveEmployee(employee: Emploee): void;
+  updateEmployee(employee: Emploee): void;
 }
 
 const AppContext = createContext({} as AppContextData);
@@ -170,6 +173,39 @@ function AppContextProvider({ children }: AppContextProviderProps) {
         setCurrentFilial(oldV => !oldV ? response.data.content[0] : oldV)
       });
   }, [])
+
+  function saveEmployee(employee: Emploee) {
+    if (employee === null) return;
+
+    api.post("/funcionario", {
+      ...employee,
+      gerente: false,
+      salario: 4000,
+      id: undefined,
+      filialId: currentFilial?.id
+    })
+      .then(() => {
+        getEmployeesByFilial();
+        setIsEmployeeFormOpen(false);
+        setCurrentEmployee(null);
+      })
+  }
+
+  function updateEmployee(employee: Emploee) {
+    if (employee === null) return;
+
+    api.put(`/funcionario/${employee.id}`, {
+      ...employee,
+      gerente: false,
+      salario: 4000,
+      id: undefined,
+    })
+      .then(() => {
+        getEmployeesByFilial();
+        setIsEmployeeFormOpen(false);
+        setCurrentEmployee(null);
+      })
+  }
 
   function getMoviesByFilial() {
     if (currentFilial === null) return;
@@ -401,7 +437,9 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       removeFilme,
       removeProduto,
       currentRoom,
-      setCurrentRoom
+      setCurrentRoom,
+      saveEmployee,
+      updateEmployee
     }}>
       {children}
     </AppContext.Provider>

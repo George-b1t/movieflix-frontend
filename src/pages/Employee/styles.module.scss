@@ -46,10 +46,6 @@
 
             border-radius: 2px;
 
-            &:last-child{
-                width: 100px;
-            }
-
         }
 
         
@@ -72,16 +68,6 @@
             justify-content: center;
             border-radius: 2px;
 
-            &:last-child{
-                width: 100px;
-                
-                transition: .1s ease;
-
-                &:hover{
-                    color: black;
-                    background: #e2b282;
-                }
-            }
 
         }
     

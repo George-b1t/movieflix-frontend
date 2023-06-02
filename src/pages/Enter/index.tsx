@@ -41,7 +41,12 @@ function Enter() {
       email,
       senha: password
     }).then(response => {
-      setUser(response.data);
+      setUser({
+        cpf: response.data.cpf,
+        email: response.data.email,
+        nome: response.data.nome,
+        role: response.data.gerente ? "manager" : response.data.role
+      });
 
       if (response.data.role === "manager" || response.data.role === "func") {
         setCurrentFilial(response.data.filial);

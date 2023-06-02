@@ -10,7 +10,7 @@ function Employee(){
     const { user, setIsEmployeeFormOpen, isEmployeeFormOpen, currentFilial, getEmployeesByFilial, employees, setCurrentEmployee } = useContext(AppContext);
 
     useEffect(() => {
-        if (!user || user.role !== "manager" || false) {
+        if (!user || user.role !== "manager") {
             window.location.href = "/#/";
             return;
         }
@@ -48,18 +48,16 @@ function Employee(){
                             <p>ID</p>
                             <p>Nome</p>
                             <p>Email</p>
-                            <p>Editar</p>
 
                         </div>
                         
-                        {employees.map((item, index) => {
+                        {employees.filter(i => !i.gerente).map((item, index) => {
                             return (
                                 <div className={styles.employeeBody}> 
                                     
                                     <p>{item.id}</p>
                                     <p>{item.nome}</p>
                                     <p>{item.email}</p>
-                                    <button onClick={() => editEmployee(item)} className="btn-edit">Editar</button>
 
                             
                                 
