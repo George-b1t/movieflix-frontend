@@ -14,10 +14,10 @@ function EmployeeForm() {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <h1>Employee</h1>
+        <h1>Funcionário</h1>
 
         <div className={styles.fieldInputs}>
-          <input type="text" name="nome" value={nome} onChange={e => setNome(e.target.value)} placeholder="Nome do filme" />
+          <input type="text" name="nome" value={nome} onChange={e => setNome(e.target.value)} placeholder="Nome do funcionário" />
 					<input type="text" name="cargo" value={cargo} onChange={e => setCargo(e.target.value)} placeholder="Cargo" />
 					<input type="text" name="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
 					<input type="text" name="salario" value={salario} onChange={e => setSalario(e.target.value)} placeholder="Salário" />
