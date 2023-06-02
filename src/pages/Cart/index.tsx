@@ -3,9 +3,11 @@ import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
+import { api } from "../../services/api";
+import { toast } from "react-toastify";
 
 function Cart(){
-	const { cart, setCart } = useContext(AppContext);
+	const { cart, setCart, user } = useContext(AppContext);
 
 	const [ selectedPayment, setSelectedPayment ] = useState<"pix" | "creditCard" | null>(null);
 	const [isPaying, setIsPaying] = useState(false);
@@ -48,10 +50,53 @@ function Cart(){
 		}
 	}
 
-	function onNextClick() {
+	async function onNextClick() {
+		if (!user) {
+			toast("Você precisa estar logado para comprar");
+			return
+		}
+
 		if (!isPaying) {
 			setIsPaying(true);
 			return;
+		}
+
+		if (isPaying && selectedPayment) {
+			const productsIdsList: any = []
+			
+			cart.forEach(item => {
+				if (item.type === "snack") {
+					for (let i = 0; i < item.quantity; i++) {
+						productsIdsList.push(item.productId);
+					}
+				}
+			})
+
+			await api.post("/compra", {
+				usuarioId: user?.cpf,
+				produtosId: productsIdsList,
+			})
+			.then(async (res) => {
+				for (let i =0; i < cart.length; i++) {
+					const item = cart[i];
+
+					if (item.type === "movie" && item.seats) {
+						for (let j = 0; j < item.seats?.length; j++) {
+							await api.post("/reserva", {
+								cadeira: item.seats[j],
+								compraId: res.data.id,
+								sessaoId: cart[i].sessionId,
+							})
+						}
+					}
+				}
+			})
+
+			toast.success("Compra realizada com sucesso");
+
+			setCart([]);
+			setIsPaying(false);
+			setSelectedPayment(null);
 		}
 	}
 

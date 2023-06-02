@@ -1,13 +1,17 @@
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext, Cart, ProductProps } from "../../context/AppContext";
 import { toast } from "react-toastify";
 import { SelectProductForm } from "../../components/SelectProductForm";
 
 function Products() {
-  const { user, setCart, isSelectProductFormOpen, setIsSelectProductFormOpen, products, removeEstoque } = useContext(AppContext);
+  const { user, setCart, isSelectProductFormOpen, setIsSelectProductFormOpen, products, removeEstoque, getProductsByFilial, currentFilial } = useContext(AppContext);
+
+  useEffect(() => {
+    getProductsByFilial();
+  }, [currentFilial])
 
   function addProduct(nProduct: ProductProps) {
     if (user?.role === "manager" || user?.role === "func") {
@@ -24,12 +28,12 @@ function Products() {
         if (productAlreadyInCart) {
           return oldValue.map((item: Cart) =>
             item.name === nProduct.nome
-              ? { ...productAlreadyInCart, quantity: item.quantity + 1 }
+              ? { ...productAlreadyInCart, quantity: item.quantity + 1, productId: nProduct.id }
               : item
           )
         }
 
-        return [...oldValue, { name: nProduct.nome, price: nProduct.preco, quantity: 1, type: "snack" }]
+        return [...oldValue, { name: nProduct.nome, price: nProduct.preco, quantity: 1, type: "snack", productId: nProduct.id }]
       }
     )
 

@@ -15,11 +15,13 @@ interface Seat {
 }
 
 interface Session {
+  id: string;
   room: string;
   time: string;
 }
 
 interface SessionProps {
+  id: string;
   sala: Room;
   filme: MovieProps;
   horarioSessao: string;
@@ -44,6 +46,8 @@ function MovieSchedule() {
 
   const [ selectedSession, setSelectedSession ] = useState<Session | null>(null);
 
+  const [ reservas, setReservas ] = useState<any[]>([]);
+
   useEffect(() => {
     if (!currentMovie) {
       window.location.href = "/#/movies";
@@ -51,18 +55,36 @@ function MovieSchedule() {
     }
 
     getSessions();
+    getReservas();
 
     getRooms();
   }, []);
 
   useEffect(() => {
+    if (!selectedSession) return;
+
+    reservarSeat();
+  }, [selectedSession]);
+
+  function getReservas() {
+    api.get("/reserva")
+      .then(response => {
+        setReservas(response.data.content);
+      })
+  }
+
+  function resetSeats() {
     setSeats([]);
 
     for (let i = 1; i < 46; i++) {
-      const isFree = Math.random() >= 0.3;
-
-      setSeats(oldValue => [...oldValue, { id: i, status: isFree ? "free" : "occupied" }]);
+      setSeats((oldValue) => [...oldValue, { id: i, status: "free" }]);
     }
+  }
+
+  useEffect(() => {
+    setSeats([]);
+
+    resetSeats();
   }, [selectedDay]);
 
   function selectSession(session: Session) {
@@ -72,6 +94,22 @@ function MovieSchedule() {
     }
 
     setSelectedSession(session);
+  }
+
+  function reservarSeat() {
+    resetSeats();
+
+    reservas.forEach(reserva => {
+      if (reserva.sessaoId.id === selectedSession?.id) {
+        setSeats(oldValue => oldValue.map(seat => {
+          if (Number(reserva.cadeira) === seat.id) {
+            return { ...seat, status: "occupied" };
+          }
+
+          return seat;
+        }));
+      }
+    })
   }
 
   function selectSeat(seat: Seat) {
@@ -131,7 +169,7 @@ function MovieSchedule() {
     if (alreadyInCart) {
       setCart(oldValue => oldValue.map(item => {
         if (item.name === currentMovie?.nome) {
-          return { ...item, quantity: item.quantity + seats.filter(seat => seat.status === "selected").length };
+          return { ...item, quantity: item.quantity + seats.filter(seat => seat.status === "selected").length, seats: seats.filter(seat => seat.status === "selected").map(i => i.id), sessionId: selectedSession?.id };
         }
 
         return item;
@@ -141,12 +179,14 @@ function MovieSchedule() {
         name: currentMovie?.nome || "",
         price: 20,
         quantity: seats.filter(seat => seat.status === "selected").length,
+        seats: seats.filter(seat => seat.status === "selected").map(i => i.id),
+        sessionId: selectedSession?.id,
         type: "movie"
       }]);
     }
 
     setSelectedSession(null);
-    setSelectedDay("10/06");
+    setSelectedDay(days[0]);
     resetSelectedSeats();
   }
 
@@ -263,7 +303,7 @@ function MovieSchedule() {
 
                         {
                           sessions.filter(item => item.sala.nome == room.nome).filter(item => getDay(item.horarioSessao) == selectedDay).map((time, index) => (
-                            <button key={index} className={`${styles.hour} ${isSessionSelected({ room: room.nome, time: getTime(time.horarioSessao) }) ? styles.hourSelected : ""}`} onClick={() => selectSession({room: room.nome, time: getTime(time.horarioSessao)})}>
+                            <button key={index} className={`${styles.hour} ${isSessionSelected({ room: room.nome, time: getTime(time.horarioSessao), id: time.id }) ? styles.hourSelected : ""}`} onClick={() => selectSession({room: room.nome, time: getTime(time.horarioSessao), id: time.id})}>
                               {getTime(time.horarioSessao)}
                             </button>
                           ))

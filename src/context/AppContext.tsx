@@ -8,6 +8,9 @@ export interface Cart {
   price: number;
   quantity: number;
   type: "movie" | "snack";
+  seats?: number[];
+  sessionId?: string;
+  productId?: string;
 }
 
 interface Filial {
@@ -34,6 +37,7 @@ export interface Emploee {
 }
 
 interface User {
+  cpf: string;
   nome: string;
   email: string;
   role: "user" | "admin" | "manager" | "func";
