@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
@@ -19,7 +19,11 @@ export interface MovieProps {
 }
 
 function Movie() {
-  const { user, isSelectMovieFormOpen, setIsSelectMovieFormOpen, setCurrentMovie, movies, removeCatalogo } = useContext(AppContext);
+  const { user, isSelectMovieFormOpen, setIsSelectMovieFormOpen, setCurrentMovie, movies, removeCatalogo, getMoviesByFilial, currentFilial } = useContext(AppContext);
+
+  useEffect(() => {
+    getMoviesByFilial();
+  }, [currentFilial]);
 
   return (
     <div className={styles.container}>
