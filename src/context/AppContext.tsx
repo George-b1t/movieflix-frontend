@@ -54,6 +54,9 @@ interface AppContextData {
   setIsSnackFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isEmployeeFormOpen: boolean;
   setIsEmployeeFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  
+  isDateFormOpen: boolean;
+  setIsDateFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
 
   movies: MovieProps[];
   setMovies: React.Dispatch<React.SetStateAction<MovieProps[]>>;
@@ -128,6 +131,7 @@ function AppContextProvider({ children }: AppContextProviderProps) {
 
   const [ isSelectMovieFormOpen, setIsSelectMovieFormOpen ] = useState(false);
   const [ isSelectProductFormOpen, setIsSelectProductFormOpen ] = useState(false);
+  const [ isDateFormOpen, setIsDateFormOpen ] = useState(false);
 
   useEffect(() => {
     getMovies();
@@ -332,7 +336,9 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       setIsSelectProductFormOpen,
       addEstoque,
       removeCatalogo,
-      getEmployeesByFilial
+      getEmployeesByFilial,
+      isDateFormOpen,
+      setIsDateFormOpen
     }}>
       {children}
     </AppContext.Provider>
