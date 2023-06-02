@@ -2,11 +2,12 @@ import styles from "./styles.module.scss"
 import { Header } from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { EmployeeForm } from "../../components/EmployeeForm";
-import { AppContext } from "../../context/AppContext";
+import { AppContext, Emploee } from "../../context/AppContext";
 import { useContext, useEffect } from "react";
 
+
 function Employee(){
-    const { user, setIsEmployeeFormOpen, isEmployeeFormOpen, currentFilial, getEmployeesByFilial, employees } = useContext(AppContext);
+    const { user, setIsEmployeeFormOpen, isEmployeeFormOpen, currentFilial, getEmployeesByFilial, employees, setCurrentEmployee } = useContext(AppContext);
 
     useEffect(() => {
         if (!user || user.role !== "manager") {
@@ -16,6 +17,11 @@ function Employee(){
 
         getEmployeesByFilial();
     }, [currentFilial])
+
+    function editEmployee(employee: Emploee) {
+        setIsEmployeeFormOpen(true);
+        setCurrentEmployee(employee);
+    }
 
     return (
             <div className={styles.container} >
@@ -57,7 +63,8 @@ function Employee(){
                                     <p>{item.gerente}</p>
                                     <p>{item.email}</p>
                                     <p>{item.senha}</p>
-                                    <button>Editar</button>
+                                    <button onClick={() => editEmployee(item)} className="btn-edit">Editar</button>
+
                             
                                 
                                 </div>
