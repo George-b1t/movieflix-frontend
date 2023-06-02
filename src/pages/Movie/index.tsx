@@ -31,7 +31,7 @@ function Movie() {
         {movies.map((movie, index) => (
           <a key={index} href="#/movieschedule" onClick={() => setCurrentMovie(movie)} className={styles.propagandaBox}>
             <img
-              src="/movieTestImage.png"
+              src={movie.srcCapa}
               className={styles.movieImage} alt="" />
             <p>Ver filme</p>
           </a>
