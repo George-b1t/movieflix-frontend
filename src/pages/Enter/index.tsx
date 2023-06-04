@@ -45,7 +45,8 @@ function Enter() {
         cpf: response.data.cpf,
         email: response.data.email,
         nome: response.data.nome,
-        role: response.data.gerente ? "manager" : response.data.role
+        role: response.data.gerente ? "manager" : response.data.role,
+        pontos: response.data.pontos,
       });
 
       if (response.data.role === "manager" || response.data.role === "func") {

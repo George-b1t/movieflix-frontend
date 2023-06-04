@@ -7,10 +7,27 @@ import { api } from "../../services/api";
 import { toast } from "react-toastify";
 
 function Cart(){
-	const { cart, setCart, user } = useContext(AppContext);
+	const { cart, setCart, user, setUser } = useContext(AppContext);
 
 	const [ selectedPayment, setSelectedPayment ] = useState<"pix" | "creditCard" | null>(null);
 	const [isPaying, setIsPaying] = useState(false);
+
+	const hasDiscount = (user?.pontos || 0) >= 32;
+	const discount = hasDiscount ? Math.floor((user?.pontos || 0) / 32) : 0;
+
+	const quantityOfIngressosOnCart = cart.reduce((acc, item) => acc + (item.type === "movie" ? (item.seats?.length || 0) : 0), 0);
+
+	const realDiscount = discount >= quantityOfIngressosOnCart ? quantityOfIngressosOnCart : discount;
+
+	const total = () => {
+		const tempTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)
+
+		if (hasDiscount) {
+			return tempTotal - (realDiscount * 20);
+		}
+
+		return tempTotal;
+	};
 
 	function changeQuantity(index: number, quantity: number) {
 		if (quantity == 0) return;
@@ -52,7 +69,7 @@ function Cart(){
 
 	async function onNextClick() {
 		if (!user) {
-			toast("Você precisa estar logado para comprar");
+			toast.info("Você precisa estar logado para comprar");
 			return
 		}
 
@@ -92,7 +109,22 @@ function Cart(){
 				}
 			})
 
-			toast.success("Compra realizada com sucesso");
+			const points = Math.floor(total() / 5);
+
+			api.post(`/usuario/${user?.cpf}/pontos/${points}?calculo=sum`)
+				.then(res => {
+					setUser(res.data);
+
+					toast.success("Compra realizada com sucesso");
+					toast.success(`Você ganhou ${points} pontos`);
+
+					if (hasDiscount) {
+						api.post(`/usuario/${user?.cpf}/pontos/${realDiscount * 32}?calculo=sub`)
+							.then(res => {
+								setUser(res.data);
+							})
+					}
+				})
 
 			setCart([]);
 			setIsPaying(false);
@@ -134,6 +166,7 @@ function Cart(){
 							<h2>{isPaying ? "Pagamento" : "Valores"}</h2>
 
 							<article>
+								<p className={styles.memberMessage}>A cada 32 pontos você ganha 1 ingresso de graça!</p>
 								{
 									isPaying && !selectedPayment && (
 											<>
@@ -167,8 +200,21 @@ function Cart(){
 											))}
 
 											<div className={styles.total}>
+												<p>Meus pontos: </p>
+												<p>{user?.pontos}</p>
+											</div>
+
+											{
+												hasDiscount && (
+													<div className={styles.total}>
+														<p>Ingressos grátis: </p>
+														<p>{discount}</p>
+													</div>
+												)
+											}
+											<div className={styles.total}>
 												<p>Total:</p>
-												<p>R$ {cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)}</p>
+												<p>R$ {total()}</p>
 											</div>
 										</>
 									)

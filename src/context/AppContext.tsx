@@ -41,6 +41,7 @@ interface User {
   nome: string;
   email: string;
   role: "user" | "admin" | "manager" | "func";
+  pontos: number;
 }
 
 interface AppContextData {
@@ -116,6 +117,12 @@ interface AppContextData {
 
   saveEmployee(employee: Emploee): void;
   updateEmployee(employee: Emploee): void;
+
+  isViewOrderFormOpen: boolean;
+  setIsViewOrderFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+  currentOrder: any;
+  setCurrentOrder: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const AppContext = createContext({} as AppContextData);
@@ -147,6 +154,10 @@ function AppContextProvider({ children }: AppContextProviderProps) {
   const [ isSelectMovieFormOpen, setIsSelectMovieFormOpen ] = useState(false);
   const [ isSelectProductFormOpen, setIsSelectProductFormOpen ] = useState(false);
   const [ isDateFormOpen, setIsDateFormOpen ] = useState(false);
+
+  const [ isViewOrderFormOpen, setIsViewOrderFormOpen ] = useState(false);
+
+  const [ currentOrder, setCurrentOrder ] = useState<any>(null);
 
   const [ currentRoom, setCurrentRoom ] = useState<Room | null>(null);
 
@@ -439,7 +450,11 @@ function AppContextProvider({ children }: AppContextProviderProps) {
       currentRoom,
       setCurrentRoom,
       saveEmployee,
-      updateEmployee
+      updateEmployee,
+      isViewOrderFormOpen,
+      setIsViewOrderFormOpen,
+      currentOrder,
+      setCurrentOrder,
     }}>
       {children}
     </AppContext.Provider>

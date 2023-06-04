@@ -63,7 +63,8 @@ function Products() {
               <div className={styles.insideHalfRightPopUp}>
                 <h1 style={{color:"white"}}>{product.nome}</h1>
                 <ul className={styles.ListaCombo}>
-                  {product.descricao}
+                  <li>{product.descricao}</li>
+                  <li>R$ {product.preco}</li>
                 </ul>
               </div>
             </div>
