@@ -166,7 +166,7 @@ function Cart(){
 							<h2>{isPaying ? "Pagamento" : "Valores"}</h2>
 
 							<article>
-								<p className={styles.memberMessage}>A cada 32 pontos você ganha 1 ingresso de graça!</p>
+								<p className={styles.memberMessage}>A cada 32 pontos você ganha 1 ingresso!</p>
 								{
 									isPaying && !selectedPayment && (
 											<>
